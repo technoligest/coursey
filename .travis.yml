@@ -3,3 +3,10 @@ install:
 - mvn install
 jdk:
 - oraclejdk8
+deploy:
+  provider: heroku
+  api_key:
+    secure: QHhZoXof5j3CGZqTW9D8hnop2TWR2K0IaAn+96yBjh7fTSrB72r1gRSZkuXpVEucIzBJRcnPoi1YKXHJMTW6V4a0HSp0UViJ2DOkAjaWDoF6yN/hMtM91+mF4hDyP9zpiHoVUb1tUYCGo/Ga+c0v17DaEsBvT0uEzkFCoYIKowyRo8sb/e0kZtRFwqNwx6rt8NaL8zzVMIupb08Bb26dP5BFWUHgsP5PmNE+a4oz3qonqFRdBHTN4uKTr06bhX8ofxOrXRDBLyomQ+KGmiQPPQSXKKcXNFd+7DRuB0Rr/Sxp/skZTaAFpCPZ8KDX5uKqEisezVx/ZaJAHfOQKS4aM3lWvKosOaiOIsjcb/oSqSsXZeQkpgdD17xkcYOMcTvp9L2tKqnBwYMu1QOcOczEHkf1Pgauk1Mvqjb4IF27mWjtiEVl5fbN0UMmJzT1AQFVxbkxMf+mffzF/OW9rd9lzebERc1duQWJSZ4jnX4VlwBgZSJ7WBxFyrzGW8GJqIGMs7zfizBTB7I9nk2G+pWg2fSmy6R004+FbrI6NnqwNu8GIRiG7R97qtiFgCytv9Sr0tPzu5GuuheXvUCLKNIeRxuhZbhSdbo3O3DTqmVEi/15voPaOdyujku5HoEE3G3zRJ86Yro+Q2cRSr5gTiAiaV/jkqAtgJVhCb/rCXQqzWs=
+  app: coursey
+  on:
+    repo: technoligest/coursey
