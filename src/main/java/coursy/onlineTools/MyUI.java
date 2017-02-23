@@ -1,5 +1,6 @@
 
 package coursy.onlineTools;
+import java.util.*;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -9,6 +10,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -26,18 +28,78 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout layout = new VerticalLayout();
-       
-  
+        ArrayList<String> usernames = new ArrayList<String>();
+        ArrayList<String> passwords = new ArrayList<String>();
+        
+        usernames.add("Admin");
+        passwords.add("pass");
+        
+        Label errorMsg = new Label();
+        Label successMsg = new Label();
+        layout.addComponent(errorMsg);
+        layout.addComponent(successMsg);
+        errorMsg.setVisible(false);
+        successMsg.setVisible(false);
+        
         final TextField name = new TextField();
-        name.setCaption("Type your name here:");
+        name.setCaption("Input Username:");
+        final PasswordField password = new PasswordField();
+        password.setCaption("Input password:");
+        password.setVisible(false);
 
-        Button button = new Button("Click Me");
-        button.addClickListener( e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
+        Button next = new Button("Next");
+        Button login = new Button("login");
+        login.setVisible(false);
+        
+        next.addClickListener( e -> {
+        	boolean found = false;
+        	if(!name.getValue().equals("")){
+	        	for(int i=0; i<usernames.size(); i++){
+	        		if(usernames.get(i).equals(name.getValue())){
+	        			found = true;
+	        		}
+	        	}
+	        	if(found == true){
+	        		//errorMsg.setValue("Thanks " + name.getValue() + ", it works!");
+	                //errorMsg.setVisible(true);
+	        		name.setVisible(false);
+	        		next.setVisible(false);
+	        		password.setVisible(true);
+	        		login.setVisible(true);
+	                login.addClickListener( e2 -> {
+	                	if(!password.getValue().equals("")){
+	                		boolean passFound = false;
+	        	        	for(int i=0; i<passwords.size(); i++){
+	        	        		if(passwords.get(i).equals(password.getValue())){
+	        	        			passFound = true;
+	        	        		}
+	        	        	}
+	        	        	if(passFound == true){
+	        	        		successMsg.setValue("Welcome" + name.getValue() + " ,login is successfull");
+	        	        		successMsg.setVisible(true);
+	        	        	}
+	        	        	else{
+	        	        		errorMsg.setValue("Invalid password.");
+	        	        		errorMsg.setVisible(true);
+	        	        	}
+	                	}
+	                });
+	        		
+	        	}
+	        	else{
+	        		errorMsg.setValue(name.getValue() + " is invalid username.");   
+	                errorMsg.setVisible(true);
+	        	}
+        	}
+        	else{
+        		errorMsg.setValue("You have entered empty.");  	
+                errorMsg.setVisible(true);
+        	}
+
         });
         
-        layout.addComponents(name, button);
+        layout.addComponents(name, next);
+        layout.addComponents(password, login);
         layout.setMargin(true);
         layout.setSpacing(true);
         
