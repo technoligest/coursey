@@ -23,9 +23,8 @@ import com.vaadin.ui.TextField;
  * By default, a new UI instance is automatically created when the page is loaded. To reuse
  * the same instance, add @PreserveOnRefresh.
  */
-@Title("Addressbook")
+@Title("Coursy")
 @Theme("valo")
-@Widgetset("com.vaadin.v7.Vaadin7WidgetSet")
 public class MyUI extends UI {
 
     /*
@@ -36,6 +35,7 @@ public class MyUI extends UI {
      * vaadin.com/directory.
      */
     TextField filter = new TextField();
+    TextField uniFilter = new TextField();
     Grid pendingList = new Grid();
     Grid uniList = new Grid();
     //Button newContact = new Button("New Task");
@@ -73,6 +73,9 @@ public class MyUI extends UI {
 
         filter.setInputPrompt("Filter contacts...");
         filter.addTextChangeListener(e -> refreshContacts(e.getText()));
+        
+        uniFilter.setInputPrompt("Filter approved schools...");
+        uniFilter.addTextChangeListener(e -> refreshContacts(e.getText()));
         
         pendingList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
         pendingList.setStyleName("PENDING UNIS");
@@ -131,17 +134,23 @@ public class MyUI extends UI {
     
     //PANEL
     private void buildLayout() {
-   	 HorizontalLayout actions = new HorizontalLayout(filter);
+   	 	HorizontalLayout actions = new HorizontalLayout(filter);
         actions.setWidth("100%");
         filter.setWidth("100%");
         actions.setExpandRatio(filter, 1);
+        
+        HorizontalLayout uniActions = new HorizontalLayout(uniFilter);
+        uniActions.setWidth("100%");
+        uniFilter.setWidth("100%");
+        uniActions.setExpandRatio(uniFilter, 1);
+        
 
         VerticalLayout left = new VerticalLayout(actions, pendingList);
         left.setSizeFull();
         pendingList.setSizeFull();
         left.setExpandRatio(pendingList, 1);
         
-        VerticalLayout right = new VerticalLayout(actions, uniList);
+        VerticalLayout right = new VerticalLayout(uniActions, uniList);
         right.setSizeFull();
         uniList.setSizeFull();
         right.setExpandRatio(uniList, 1);
@@ -174,7 +183,7 @@ public class MyUI extends UI {
      * MVC, MVP or any other design pattern you choose.
      */
     void refreshContacts() {
-        refreshContacts(filter.getValue());
+       refreshContacts(filter.getValue());
     }
 
     private void refreshContacts(String stringFilter) {

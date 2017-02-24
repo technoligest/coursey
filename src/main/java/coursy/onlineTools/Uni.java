@@ -1,8 +1,10 @@
 package coursy.onlineTools;
 
-import org.apache.commons.beanutils.BeanUtils;
+
 import java.io.Serializable;
 import java.util.Date;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * A simple DTO for the address book example.
@@ -92,9 +94,9 @@ public class Uni implements Serializable, Cloneable {
     @Override
     public Uni clone() throws CloneNotSupportedException {
         try {
-            return (Uni) BeanUtils.cloneBean(this);
-        } catch (Exception ex) {
-            throw new CloneNotSupportedException();
+           return (Uni) BeanUtils.cloneBean(this);
+      } catch (Exception ex) {
+           throw new CloneNotSupportedException();
         }
     }
 

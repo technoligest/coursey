@@ -1,6 +1,6 @@
 package coursy.onlineTools;
 
-import org.apache.commons.beanutils.BeanUtils;
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -93,7 +93,7 @@ public class UniService {
             entry.setId(nextId++);
         }
         try {
-            entry = (Uni) BeanUtils.cloneBean(entry);
+            //entry = (Uni) BeanUtils.cloneBean(entry);
             
         } catch (Exception ex) {
             throw new RuntimeException(ex);
