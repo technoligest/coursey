@@ -22,29 +22,17 @@ import com.vaadin.ui.TextField;
 @Theme("valo")
 public class MyUI extends UI {
 
-
-	//TextField filter = new TextField();
     TextField uniFilter= new TextField();
     Grid pendingList = new Grid();
     Grid uniList = new Grid();
-    //Button newContact = new Button("New Task");
 
-    // ContactForm is an example of a custom component class
+
     UniForm uniForm = new UniForm();
 
-    // ContactService is a in-memory mock DAO that mimics
-    // a real-world datasource. Typically implemented for
-    // example as EJB or Spring Data based service.
     UniService service1 = UniService.createDemoService1();
     UniService service2 = UniService.createDemoService2();
 
-    /*
-     * The "Main method".
-     *
-     * This is the entry point method executed to initialize and configure the
-     * visible user interface. Executed on every browser reload because a new
-     * instance is created for each web page loaded.
-     */
+
     @Override
     protected void init(VaadinRequest request) {
         configureComponents();
@@ -53,22 +41,11 @@ public class MyUI extends UI {
 
    
 	private void configureComponents() {
-        /*
-         * Synchronous event handling.
-         *
-         * Receive user interaction events on the server-side. This allows you
-         * to synchronously handle those events. Vaadin automatically sends only
-         * the needed changes to the web page without loading a new page.
-         */
-        //newContact.addClickListener(e -> contactForm.edit(new Contact()));
-
-        //filter.setInputPrompt("Filter pending schools..");
-        //filter.addTextChangeListener(e -> refreshContacts(e.getText()));
         
         uniFilter.setInputPrompt("Filter approved schools...");
         uniFilter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
-        
+        //pending list
         pendingList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
         pendingList.setColumnOrder("universityName", "city", "country", "task"); 
         pendingList.removeColumn("id");
@@ -77,8 +54,8 @@ public class MyUI extends UI {
         pendingList.removeColumn("endDate");
         pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
         pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
-        //refreshContacts();
      
+        //approved list
         uniList.setContainerDataSource(new BeanItemContainer<>(AcceptedUni.class));
         uniList.setColumnOrder("universityName2", "city2", "country2", "task2"); 
         uniList.removeColumn("id2");
@@ -94,14 +71,10 @@ public class MyUI extends UI {
 
     
     //PANEL
-    private void buildLayout() {
-   	 //HorizontalLayout actions = new HorizontalLayout(filter);
-   	 HorizontalLayout uniActions= new HorizontalLayout(uniFilter);
-        //actions.setWidth("100%");
+	private void buildLayout() {
+    	HorizontalLayout uniActions= new HorizontalLayout(uniFilter);
         uniActions.setWidth("100%");
         uniFilter.setWidth("100%");
-        //filter.setWidth("100%");
-        //actions.setExpandRatio(filter, 1);
         uniActions.setExpandRatio(uniFilter, 1);
 
         VerticalLayout left = new VerticalLayout(pendingList);
@@ -123,26 +96,13 @@ public class MyUI extends UI {
         panel2.setContent(right);
 
         VerticalLayout KLayout = new VerticalLayout(panel1, panel2);
-        
-        //mainLayout.setExpandRatio(left, 1);
-
-        // Split and allow resizing
-       // setContent(mainLayout);
+       
         HorizontalLayout mainLayout = new HorizontalLayout(KLayout,uniForm);
         mainLayout.setExpandRatio(uniForm, 1);
         setContent(mainLayout);
    }
 
-    /*
-     * Choose the design patterns you like.
-     *
-     * It is good practice to have separate data access methods that handle the
-     * back-end access and/or the user interface updates. You can further split
-     * your code into classes to easier maintenance. With Vaadin you can follow
-     * MVC, MVP or any other design pattern you choose.
-     */
     void refreshContacts() {
-        //refreshContacts(filter.getValue());
         refreshContacts(uniFilter.getValue());
     }
 
@@ -154,13 +114,6 @@ public class MyUI extends UI {
         uniForm.setVisible(false);
     }
 
-    /*
-     * Deployed as a Servlet or Portlet.
-     *
-     * You can specify additional servlet parameters like the URI and UI class
-     * name and turn on production mode when you have finished developing the
-     * application.
-     */
     @WebServlet(urlPatterns = "/*")
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {

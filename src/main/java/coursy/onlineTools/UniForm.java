@@ -82,22 +82,15 @@ public class UniForm extends FormLayout {
      */
     public void approve(Button.ClickEvent event) {
         try {
-            // Commit the fields from UI to DAO
-        	//getUI().uniList.setData(contact);
-        	getUI().uniList.addRow(this.uni);
-        	formFieldBindings.commit();
-            // Save DAO to backend with direct synchronous service API
-                 
-
-            String msg = String.format("APPROVED '%s %s'.", uni.getUniversityName(),
-                    uni.getCity());
-            Notification.show(msg, Type.TRAY_NOTIFICATION);
-            getUI().service1.delete(uni);
-            getUI().refreshContacts();
+        	Notification.show(uni.getUniversityName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);
+        	getUI().uniList.addRow(uni);
         } catch (Exception e) {
             // Validation exceptions could be shown here
         }
+        getUI().service1.delete(uni);
+    	getUI().refreshContacts();
     }
+
 
     public void cancel(Button.ClickEvent event) {
         // Place to call business logic.

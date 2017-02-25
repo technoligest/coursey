@@ -17,23 +17,29 @@ import org.apache.commons.beanutils.BeanUtils;
 // class and nothing Vaadin specific.
 public class UniService {
 
-    // Create dummy data by randomly combining first and last names
-    static String[] PuniNames = { "ABC", "DEF", "GHI", "JKL", "MNO"};
-    
-    static String[] PcityNames = { "CITY1", "CITY2", "CITY3", "CITY4", "CITY5"};
-    
-    static String[] PcountryNames = { "COUNTRY1", "COUNTRY2", "COUNTRY3", "COUNTRY4", "COUNTRY5"};
-    
-    static String[] AuniNames = { "DAL", "SMU", "NASCAD", "MSVU", "NSCC"};
-    
-    static String[] AcityNames = { "Halifax", "New York", "Somewhere", "London", "Madrid"};
-    
-    static String[] AcountryNames = { "Canada", "USA", "Nowhere", "UK", "Spain"};
+    // Create dummy data
+    //Pending uni lists
+    static ArrayList<String>PUNames = new ArrayList<String>(4);
+    static ArrayList<String>PCity = new ArrayList<String>(4);
+    static ArrayList<String>PCountry = new ArrayList<String>(4);
+    //approved uni lists
+    static ArrayList<String>AUNames = new ArrayList<String>();
+    static ArrayList<String>ACity = new ArrayList<String>();
+    static ArrayList<String>ACountry = new ArrayList<String>();
 
     private static UniService instance;
     private static UniService instance2;
 
     public static UniService createDemoService1() {
+    	PUNames.add("ABC");
+    	PUNames.add("DEF");
+    	PUNames.add("GHI");
+    	PCity.add("City");
+    	PCity.add("City2");
+    	PCity.add("City3");
+    	PCountry.add("Country");
+    	PCountry.add("Country2");
+    	PCountry.add("Country3");
         if (instance == null) {
 
             final UniService contactService = new UniService();
@@ -41,11 +47,14 @@ public class UniService {
             Random r = new Random(0);
             int test = 1;
             Calendar cal = Calendar.getInstance();
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < PUNames.size(); i++) {
                 Uni contact = new Uni();
-                contact.setUniversityName(PuniNames[r.nextInt(PuniNames.length)]);
-                contact.setCity(PcityNames[r.nextInt(PuniNames.length)]);
-                contact.setCountry(PcountryNames[r.nextInt(PuniNames.length)]);
+                //contact.setUniversityName(PuniNames[r.nextInt(PuniNames.length)]);
+                contact.setUniversityName(PUNames.get(i));
+                //contact.setCity(PcityNames[r.nextInt(PuniNames.length)]);
+                contact.setCity(PCity.get(i));
+                //contact.setCountry(PcountryNames[r.nextInt(PuniNames.length)]);
+                contact.setCountry(PCountry.get(i));
                 contact.setEmail("info@" + contact.getUniversityName().toLowerCase() + ".com");
                 contact.setTask("TASK #" + test);
                 cal.set(1930 + r.nextInt(70),
@@ -62,6 +71,18 @@ public class UniService {
     }
     
     public static UniService createDemoService2() {
+    	AUNames.add("DAL");
+    	AUNames.add("SMU");
+    	AUNames.add("MSVU");
+    	AUNames.add("-");
+    	ACity.add("HALIFAX");
+    	ACity.add("NEW YORK");
+    	ACity.add("RIO");
+    	ACity.add("-");
+    	ACountry.add("CANADA");
+    	ACountry.add("USA");
+    	ACountry.add("BRAZIL");
+    	ACountry.add("-");
         if (instance2 == null) {
 
             final UniService contactService = new UniService();
@@ -69,11 +90,14 @@ public class UniService {
             Random r = new Random(0);
             int test = 1;
             Calendar cal = Calendar.getInstance();
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < AUNames.size(); i++) {
                 AcceptedUni contact = new AcceptedUni();
-                contact.setUniversityName2(AuniNames[r.nextInt(AuniNames.length)]);
-                contact.setCity2(AcityNames[r.nextInt(AuniNames.length)]);
-                contact.setCountry2(AcountryNames[r.nextInt(AuniNames.length)]);
+                //contact.setUniversityName2(AuniNames[r.nextInt(AuniNames.length)]);
+                contact.setUniversityName2(AUNames.get(i));
+                //contact.setCity2(AcityNames[r.nextInt(AuniNames.length)]);
+                contact.setCity2(ACity.get(i));
+                //contact.setCountry2(AcountryNames[r.nextInt(AuniNames.length)]);
+                contact.setCountry2(ACountry.get(i));
                 contact.setEmail2("info@" + contact.getUniversityName2().toLowerCase() + ".com");
                 contact.setTask2("TASK #" + test);
                 cal.set(1930 + r.nextInt(70),
