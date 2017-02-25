@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
  */
 // Backend DTO class. This is just a typical Java backend implementation
 // class and nothing Vaadin specific.
-public class Uni implements Serializable, Cloneable {
+public class AcceptedUni implements Serializable, Cloneable {
 
     private Long id;
 
@@ -92,9 +92,9 @@ public class Uni implements Serializable, Cloneable {
     }
 
     @Override
-    public Uni clone() throws CloneNotSupportedException {
+    public AcceptedUni clone() throws CloneNotSupportedException {
         try {
-            return (Uni) BeanUtils.cloneBean(this);
+            return (AcceptedUni) BeanUtils.cloneBean(this);
         } catch (Exception ex) {
             throw new CloneNotSupportedException();
         }

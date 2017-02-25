@@ -17,36 +17,26 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.TextField;
 
-/* User Interface written in Java.
- *
- * Define the user interface shown on the Vaadin generated web page by extending the UI class.
- * By default, a new UI instance is automatically created when the page is loaded. To reuse
- * the same instance, add @PreserveOnRefresh.
- */
+
 @Title("Coursy")
 @Theme("valo")
 public class MyUI extends UI {
 
-    /*
-     * Hundreds of widgets. Vaadin's user interface components are just Java
-     * objects that encapsulate and handle cross-browser support and
-     * client-server communication. The default Vaadin components are in the
-     * com.vaadin.ui package and there are over 500 more in
-     * vaadin.com/directory.
-     */
-    TextField filter = new TextField();
-    TextField uniFilter = new TextField();
+
+	//TextField filter = new TextField();
+    TextField uniFilter= new TextField();
     Grid pendingList = new Grid();
     Grid uniList = new Grid();
     //Button newContact = new Button("New Task");
 
     // ContactForm is an example of a custom component class
-    UniForm contactForm = new UniForm();
+    UniForm uniForm = new UniForm();
 
     // ContactService is a in-memory mock DAO that mimics
     // a real-world datasource. Typically implemented for
     // example as EJB or Spring Data based service.
-    UniService service = UniService.createDemoService();
+    UniService service1 = UniService.createDemoService1();
+    UniService service2 = UniService.createDemoService2();
 
     /*
      * The "Main method".
@@ -61,7 +51,8 @@ public class MyUI extends UI {
         buildLayout();
     }
 
-    private void configureComponents() {
+   
+	private void configureComponents() {
         /*
          * Synchronous event handling.
          *
@@ -71,86 +62,54 @@ public class MyUI extends UI {
          */
         //newContact.addClickListener(e -> contactForm.edit(new Contact()));
 
-        filter.setInputPrompt("Filter contacts...");
-        filter.addTextChangeListener(e -> refreshContacts(e.getText()));
+        //filter.setInputPrompt("Filter pending schools..");
+        //filter.addTextChangeListener(e -> refreshContacts(e.getText()));
         
         uniFilter.setInputPrompt("Filter approved schools...");
         uniFilter.addTextChangeListener(e -> refreshContacts(e.getText()));
+
         
         pendingList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
-        pendingList.setStyleName("PENDING UNIS");
         pendingList.setColumnOrder("universityName", "city", "country", "task"); 
         pendingList.removeColumn("id");
         pendingList.removeColumn("email");
         pendingList.removeColumn("startDate");
         pendingList.removeColumn("endDate");
         pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
-        pendingList.addSelectionListener(
-               e -> contactForm.edit((Uni) pendingList.getSelectedRow()));
+        pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
         refreshContacts();
-        
-        uniList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
+     
+        uniList.setContainerDataSource(new BeanItemContainer<>(AcceptedUni.class));
         uniList.setColumnOrder("universityName", "city", "country", "task"); 
         uniList.removeColumn("id");
         uniList.removeColumn("email");
         uniList.removeColumn("startDate");
         uniList.removeColumn("endDate");
         uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
-        uniList.addSelectionListener(
-               e -> contactForm.edit((Uni) uniList.getSelectedRow()));
+        uniList.addSelectionListener(e -> uniForm.edit2((Uni) uniList.getSelectedRow()));
         refreshContacts();
+       
     }
 
-    /*
-     * Robust layouts.
-     *
-     * Layouts are components that contain other components. HorizontalLayout
-     * contains TextField and Button. It is wrapped with a Grid into
-     * VerticalLayout for the left side of the screen. Allow user to resize the
-     * components with a SplitPanel.
-     *
-     * In addition to programmatically building layout in Java, you may also
-     * choose to setup layout declaratively with Vaadin Designer, CSS and HTML.
-     */
-    /*private void buildLayout() {
-    	 HorizontalLayout actions = new HorizontalLayout(filter);
-         actions.setWidth("100%");
-         filter.setWidth("100%");
-         actions.setExpandRatio(filter, 1);
 
-         VerticalLayout left = new VerticalLayout(actions, pendingList);
-         left.setSizeFull();
-         pendingList.setSizeFull();
-         left.setExpandRatio(pendingList, 1);
-         
-
-         HorizontalLayout mainLayout = new HorizontalLayout(left, contactForm);
-         mainLayout.setSizeFull();
-         mainLayout.setExpandRatio(left, 1);
-
-         // Split and allow resizing
-         setContent(mainLayout);
-    }*/
     
     //PANEL
     private void buildLayout() {
-   	 	HorizontalLayout actions = new HorizontalLayout(filter);
-        actions.setWidth("100%");
-        filter.setWidth("100%");
-        actions.setExpandRatio(filter, 1);
-        
-        HorizontalLayout uniActions = new HorizontalLayout(uniFilter);
+   	 //HorizontalLayout actions = new HorizontalLayout(filter);
+   	 HorizontalLayout uniActions= new HorizontalLayout(uniFilter);
+        //actions.setWidth("100%");
         uniActions.setWidth("100%");
         uniFilter.setWidth("100%");
+        //filter.setWidth("100%");
+        //actions.setExpandRatio(filter, 1);
         uniActions.setExpandRatio(uniFilter, 1);
-        
 
-        VerticalLayout left = new VerticalLayout(actions, pendingList);
+        VerticalLayout left = new VerticalLayout(pendingList);
         left.setSizeFull();
         pendingList.setSizeFull();
         left.setExpandRatio(pendingList, 1);
         
-        VerticalLayout right = new VerticalLayout(uniActions, uniList);
+        VerticalLayout right = new VerticalLayout(uniActions,uniList);
         right.setSizeFull();
         uniList.setSizeFull();
         right.setExpandRatio(uniList, 1);
@@ -169,8 +128,8 @@ public class MyUI extends UI {
 
         // Split and allow resizing
        // setContent(mainLayout);
-        HorizontalLayout mainLayout = new HorizontalLayout(KLayout,contactForm);
-        mainLayout.setExpandRatio(contactForm, 1);
+        HorizontalLayout mainLayout = new HorizontalLayout(KLayout,uniForm);
+        mainLayout.setExpandRatio(uniForm, 1);
         setContent(mainLayout);
    }
 
@@ -183,13 +142,16 @@ public class MyUI extends UI {
      * MVC, MVP or any other design pattern you choose.
      */
     void refreshContacts() {
-       refreshContacts(filter.getValue());
+        //refreshContacts(filter.getValue());
+        refreshContacts(uniFilter.getValue());
     }
 
     private void refreshContacts(String stringFilter) {
     	pendingList.setContainerDataSource(new BeanItemContainer<>(
-                Uni.class, service.findAll(stringFilter)));
-        contactForm.setVisible(false);
+                Uni.class, service1.findAll(stringFilter)));
+    	uniList.setContainerDataSource(new BeanItemContainer<>(
+    			AcceptedUni.class, service2.findAllAccepted(stringFilter)));
+        uniForm.setVisible(false);
     }
 
     /*

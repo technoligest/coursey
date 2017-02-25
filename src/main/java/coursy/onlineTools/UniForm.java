@@ -6,6 +6,7 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextField;
@@ -21,15 +22,16 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 public class UniForm extends FormLayout {
 
-    Button save = new Button("Save", this::save);
+	Button approve = new Button("Approve", this::approve);
     Button cancel = new Button("Cancel", this::cancel);
-    Button remove = new Button("Remove", this::remove);
-    TextField uniName = new TextField("University name");
-    TextField City = new TextField("City");
-    TextField Country = new TextField("Country");
-    TextField email = new TextField("Email");
-    
-    Uni contact;
+    Button deny = new Button("Deny", this::deny);
+    Button delete = new Button("Delete", this::delete);
+    Label uniName = new Label();
+    Label City = new Label();
+    Label Country = new Label();
+    Label email = new Label();
+    HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny); 
+    Uni uni;
 
     // Easily bind forms to beans and manage validation and buffering
     BeanFieldGroup<Uni> formFieldBindings;
@@ -46,8 +48,8 @@ public class UniForm extends FormLayout {
          * With Vaadin built-in styles you can highlight the primary save button
          * and give it a keyboard shortcut for a better UX.
          */
-        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
-        save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        approve.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        approve.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         setVisible(false);
     }
 
@@ -55,7 +57,7 @@ public class UniForm extends FormLayout {
         setSizeUndefined();
         setMargin(true);
 
-        HorizontalLayout actions = new HorizontalLayout(save, cancel, remove);
+        HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny);
         actions.setSpacing(true);
 
         addComponents(actions, uniName, City, Country, email);
@@ -73,19 +75,21 @@ public class UniForm extends FormLayout {
      * classes and receive to various Vaadin component events, like button
      * clicks. Or keep it simple and compact with Lambda expressions.
      */
-    public void save(Button.ClickEvent event) {
+    public void approve(Button.ClickEvent event) {
         try {
             // Commit the fields from UI to DAO
-            formFieldBindings.commit();
-
+        	//getUI().uniList.setData(contact);
+        	getUI().uniList.addRow(this.uni);
+        	formFieldBindings.commit();
             // Save DAO to backend with direct synchronous service API
-            getUI().service.save(contact);
+                 
 
-            String msg = String.format("Saved '%s %s'.", contact.getUniversityName(),
-                    contact.getCity());
+            String msg = String.format("Saved '%s %s'.", uni.getUniversityName(),
+                    uni.getCity());
             Notification.show(msg, Type.TRAY_NOTIFICATION);
+            getUI().service1.delete(uni);
             getUI().refreshContacts();
-        } catch (FieldGroup.CommitException e) {
+        } catch (Exception e) {
             // Validation exceptions could be shown here
         }
     }
@@ -94,22 +98,53 @@ public class UniForm extends FormLayout {
         // Place to call business logic.
         Notification.show("Cancelled", Type.TRAY_NOTIFICATION);
         getUI().pendingList.select(null);
+        getUI().uniList.select(null);
     }
 
-    void edit(Uni contact) {
-        this.contact = contact;
-        if (contact != null) {
-            // Bind the properties of the contact POJO to fiels in this form
-            formFieldBindings = BeanFieldGroup.bindFieldsBuffered(contact,
-                    this);
-            uniName.focus();
+    void edit(Uni uni) {
+        this.uni = uni;
+        if (uni != null) {
+        	uniName.setValue("University: "+uni.getUniversityName());
+        	City.setValue("City: "+uni.getCity());
+        	Country.setValue("Country: "+uni.getCountry());
+        	email.setValue("Email: "+uni.getEmail());
+        	
+            // Bind the properties of the contact POJO to fields in this form
+           // formFieldBindings = BeanFieldGroup.bindFieldsUnbuffered(contact,
+            //        this);
+          
         }
-        setVisible(contact != null);
+        setVisible(uni != null);
+    }
+    void edit2(Uni uni) {
+    	this.uni=uni;
+    	 if (uni != null) {
+         	uniName.setValue("University: "+uni.getUniversityName());
+         	City.setValue("City: "+uni.getCity());
+         	Country.setValue("Country: "+uni.getCountry());
+         	email.setValue("Email: "+uni.getEmail());
+         	actions.removeComponent(approve);
+         	actions.removeComponent(deny);
+         	actions.addComponent(delete);
+         	
+             // Bind the properties of the contact POJO to fields in this form
+            // formFieldBindings = BeanFieldGroup.bindFieldsUnbuffered(contact,
+             //        this);
+           
+         }
+         setVisible(uni != null);
+    	
     }
     
-    private void remove(Button.ClickEvent event) {
-        getUI().service.delete(contact);
-        String msg = String.format("REMOVED THE TASK " + contact.getTask());
+    private void deny(Button.ClickEvent event) {
+        getUI().service1.delete(uni);
+        String msg = String.format(uni.getUniversityName()+" DENIED ");
+        Notification.show(msg, Type.TRAY_NOTIFICATION);
+        getUI().refreshContacts();
+    }
+    private void delete(Button.ClickEvent event) {
+        getUI().service1.delete(uni);
+        String msg = String.format(uni.getUniversityName()+" DELETED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
         getUI().refreshContacts();
     }
@@ -120,4 +155,3 @@ public class UniForm extends FormLayout {
     }
 
 }
-
