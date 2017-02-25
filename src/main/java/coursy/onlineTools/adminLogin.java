@@ -1,5 +1,6 @@
-
 package coursy.onlineTools;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.*;
 
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
  * overridden to add component to the user interface and initialize non-component functionality.
  */
 @Theme("mytheme")
-public class MyUI extends UI {
+public class adminLogin extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -78,11 +79,10 @@ public class MyUI extends UI {
         next.addClickListener( e -> {
         	boolean found = false;
         	if(!name.getValue().equals("")){
-	        	for(int i=0; i<usernames.size(); i++){
-	        		if(usernames.get(i).equals(name.getValue())){
-	        			found = true;
-	        		}
-	        	}
+	        	if(findUsername(usernames, name.getValue()) != -1)
+	        		found = true;
+	        	else
+	        		found = false;
 	        	if(found == true){
 	        		successMsg.setValue("Welcome " + name.getValue() + ", please input your password!");
 	                successMsg.setVisible(true);
@@ -93,12 +93,8 @@ public class MyUI extends UI {
 	        		login.setVisible(true);
 	                login.addClickListener( e2 -> {
 	                	if(!password.getValue().equals("")){
-	                		boolean passFound = false;
-	        	        	for(int i=0; i<passwords.size(); i++){
-	        	        		if(passwords.get(i).equals(password.getValue())){
-	        	        			passFound = true;
-	        	        		}
-	        	        	}
+	                		boolean passFound = findPassword(passwords, password.getValue(), findUsername(usernames, name.getValue()));
+
 	        	        	if(passFound == true){
 	        	        		successMsg.setValue("Welcome " + name.getValue() + ", login is successfull!");
 	        	        		successMsg.setVisible(true);
@@ -134,9 +130,32 @@ public class MyUI extends UI {
         
         setContent(layout);
     }
+    //Search for username in an arraylist and return its index if exist, otherwise return -1
+    public static int findUsername(ArrayList<String> users, String name){
+    	int found = -1;
+    	for(int i=0; i<users.size(); i++){
+    		if(users.get(i).equals(name)){
+    			found = i;
+    		}
+    	}
+    	return found;
+    }
+    //Search if a password matches a specific username
+    public static boolean findPassword(ArrayList<String> passwords, String password,int index){
+    	if(index == -1){
+    		return false;
+    	}
+    	else {
+        	boolean found = false;
+        	if(passwords.get(index).equals(password)){
+        		found = true;
+        	}
+        	return found;   		
+    	}
+    }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = adminLogin.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
 }
