@@ -77,16 +77,16 @@ public class MyUI extends UI {
         pendingList.removeColumn("endDate");
         pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
         pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
-        refreshContacts();
+        //refreshContacts();
      
         uniList.setContainerDataSource(new BeanItemContainer<>(AcceptedUni.class));
-        uniList.setColumnOrder("universityName", "city", "country", "task"); 
-        uniList.removeColumn("id");
-        uniList.removeColumn("email");
-        uniList.removeColumn("startDate");
-        uniList.removeColumn("endDate");
+        uniList.setColumnOrder("universityName2", "city2", "country2", "task2"); 
+        uniList.removeColumn("id2");
+        uniList.removeColumn("email2");
+        uniList.removeColumn("startDate2");
+        uniList.removeColumn("endDate2");
         uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
-        uniList.addSelectionListener(e -> uniForm.edit2((Uni) uniList.getSelectedRow()));
+        uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));
         refreshContacts();
        
     }
@@ -148,7 +148,7 @@ public class MyUI extends UI {
 
     private void refreshContacts(String stringFilter) {
     	pendingList.setContainerDataSource(new BeanItemContainer<>(
-                Uni.class, service1.findAll(stringFilter)));
+             Uni.class, service1.findAll(null)));
     	uniList.setContainerDataSource(new BeanItemContainer<>(
     			AcceptedUni.class, service2.findAllAccepted(stringFilter)));
         uniForm.setVisible(false);

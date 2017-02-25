@@ -16,79 +16,79 @@ import org.apache.commons.beanutils.BeanUtils;
 // class and nothing Vaadin specific.
 public class AcceptedUni implements Serializable, Cloneable {
 
-    private Long id;
+    private Long id2;
 
-    private String universityName = "";
-    private String city = "";
-    private String country = "";
-    private String task = "";
-    private String email = "";
-    private Date startDate;
-    private Date endDate;
+    private String universityName2 = "";
+    private String city2 = "";
+    private String country2 = "";
+    private String task2 = "";
+    private String email2 = "";
+    private Date startDate2;
+    private Date endDate2;
    
 
-    public Long getId() {
-        return id;
+    public Long getId2() {
+        return id2;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId2(Long id) {
+        this.id2 = id;
     }
 
-    public String getUniversityName() {
-        return universityName;
+    public String getUniversityName2() {
+        return universityName2;
     }
 
-    public void setUniversityName(String universityName) {
-        this.universityName = universityName;
+    public void setUniversityName2(String universityName) {
+        this.universityName2 = universityName;
     }
 
-    public String getCity() {
-        return city;
+    public String getCity2() {
+        return city2;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity2(String city) {
+        this.city2 = city;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCountry2() {
+        return country2;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountry2(String country) {
+        this.country2 = country;
     }
     
-    public String getTask() {
-        return task;
+    public String getTask2() {
+        return task2;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setTask2(String task) {
+        this.task2 = task;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail2() {
+        return email2;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail2(String email) {
+        this.email2 = email;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartDate2() {
+        return startDate2;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartDate2(Date startDate) {
+        this.startDate2 = startDate;
     }
     
-    public Date getEndDate() {
-        return endDate;
+    public Date getEndDate2() {
+        return endDate2;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndDate2(Date endDate) {
+        this.endDate2 = endDate;
     }
 
     @Override
@@ -102,9 +102,9 @@ public class AcceptedUni implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "Contact{" + "id=" + id + ", UniversityName=" + universityName
-                + ", city=" + city + ", task=" + task + ", email="
-                + email + ", startDate=" + startDate + ", endDate=" +endDate+ '}';
+        return "Contact{" + "id=" + id2 + ", UniversityName=" + universityName2
+                + ", city=" + city2 + ", task=" + task2 + ", email="
+                + email2 + ", startDate=" + startDate2 + ", endDate=" +endDate2+ '}';
     }
 
 }

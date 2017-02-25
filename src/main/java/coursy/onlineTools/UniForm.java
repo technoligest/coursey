@@ -31,7 +31,9 @@ public class UniForm extends FormLayout {
     Label Country = new Label();
     Label email = new Label();
     HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny); 
+    HorizontalLayout actions2 = new HorizontalLayout(cancel, delete);
     Uni uni;
+    AcceptedUni AUni;
 
     // Easily bind forms to beans and manage validation and buffering
     BeanFieldGroup<Uni> formFieldBindings;
@@ -57,10 +59,13 @@ public class UniForm extends FormLayout {
         setSizeUndefined();
         setMargin(true);
 
-        HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny);
+        //HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny);
         actions.setSpacing(true);
+        //HorizontalLayout actions2 = new HorizontalLayout(cancel, delete);
+        actions2.setSpacing(true);
 
         addComponents(actions, uniName, City, Country, email);
+        addComponents(actions2, uniName, City, Country, email);
         
     }
 
@@ -84,7 +89,7 @@ public class UniForm extends FormLayout {
             // Save DAO to backend with direct synchronous service API
                  
 
-            String msg = String.format("Saved '%s %s'.", uni.getUniversityName(),
+            String msg = String.format("APPROVED '%s %s'.", uni.getUniversityName(),
                     uni.getCity());
             Notification.show(msg, Type.TRAY_NOTIFICATION);
             getUI().service1.delete(uni);
@@ -102,6 +107,8 @@ public class UniForm extends FormLayout {
     }
 
     void edit(Uni uni) {
+    	actions2.setVisible(false);
+    	actions.setVisible(true);
         this.uni = uni;
         if (uni != null) {
         	uniName.setValue("University: "+uni.getUniversityName());
@@ -109,30 +116,29 @@ public class UniForm extends FormLayout {
         	Country.setValue("Country: "+uni.getCountry());
         	email.setValue("Email: "+uni.getEmail());
         	
-            // Bind the properties of the contact POJO to fields in this form
-           // formFieldBindings = BeanFieldGroup.bindFieldsUnbuffered(contact,
-            //        this);
+        	
           
         }
         setVisible(uni != null);
     }
-    void edit2(Uni uni) {
-    	this.uni=uni;
-    	 if (uni != null) {
-         	uniName.setValue("University: "+uni.getUniversityName());
-         	City.setValue("City: "+uni.getCity());
-         	Country.setValue("Country: "+uni.getCountry());
-         	email.setValue("Email: "+uni.getEmail());
-         	actions.removeComponent(approve);
-         	actions.removeComponent(deny);
-         	actions.addComponent(delete);
+    void edit2(AcceptedUni acceptedUni) {
+    	actions2.setVisible(true);
+    	actions.setVisible(false);
+    	this.AUni=acceptedUni;
+    	 if (acceptedUni != null) {
+         	uniName.setValue("University: "+acceptedUni.getUniversityName2());
+         	City.setValue("City: "+acceptedUni.getCity2());
+         	Country.setValue("Country: "+acceptedUni.getCountry2());
+         	email.setValue("Email: "+acceptedUni.getEmail2());
+         	
+         	
          	
              // Bind the properties of the contact POJO to fields in this form
             // formFieldBindings = BeanFieldGroup.bindFieldsUnbuffered(contact,
              //        this);
            
          }
-         setVisible(uni != null);
+         setVisible(acceptedUni != null);
     	
     }
     
@@ -143,8 +149,8 @@ public class UniForm extends FormLayout {
         getUI().refreshContacts();
     }
     private void delete(Button.ClickEvent event) {
-        getUI().service1.delete(uni);
-        String msg = String.format(uni.getUniversityName()+" DELETED ");
+        getUI().service2.delete2(AUni);
+        String msg = String.format(AUni.getUniversityName2()+" DELETED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
         getUI().refreshContacts();
     }

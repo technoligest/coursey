@@ -71,15 +71,15 @@ public class UniService {
             Calendar cal = Calendar.getInstance();
             for (int i = 0; i < 6; i++) {
                 AcceptedUni contact = new AcceptedUni();
-                contact.setUniversityName(AuniNames[r.nextInt(AuniNames.length)]);
-                contact.setCity(AcityNames[r.nextInt(AuniNames.length)]);
-                contact.setCountry(AcountryNames[r.nextInt(AuniNames.length)]);
-                contact.setEmail("info@" + contact.getUniversityName().toLowerCase() + ".com");
-                contact.setTask("TASK #" + test);
+                contact.setUniversityName2(AuniNames[r.nextInt(AuniNames.length)]);
+                contact.setCity2(AcityNames[r.nextInt(AuniNames.length)]);
+                contact.setCountry2(AcountryNames[r.nextInt(AuniNames.length)]);
+                contact.setEmail2("info@" + contact.getUniversityName2().toLowerCase() + ".com");
+                contact.setTask2("TASK #" + test);
                 cal.set(1930 + r.nextInt(70),
                         r.nextInt(11), r.nextInt(28));
-                contact.setStartDate(cal.getTime());
-                contact.setEndDate(cal.getTime());
+                contact.setStartDate2(cal.getTime());
+                contact.setEndDate2(cal.getTime());
                 test++;
                 contactService.save2(contact);
             }
@@ -133,11 +133,11 @@ public class UniService {
                         Level.SEVERE, null, ex);
             }
         }
-        Collections.sort(arrayList, new Comparator<Uni>() {
+        Collections.sort(arrayList, new Comparator<AcceptedUni>() {
 
             @Override
-            public int compare(Uni o1, Uni o2) {
-                return (int) (o2.getId() - o1.getId());
+            public int compare(AcceptedUni o1, AcceptedUni o2) {
+                return (int) (o2.getId2() - o1.getId2());
             }
         });
         return arrayList;
@@ -150,6 +150,11 @@ public class UniService {
     public synchronized void delete(Uni value) {
         unis.remove(value.getId());
     }
+    
+    public synchronized void delete2(AcceptedUni value) {
+        unis2.remove(value.getId2());
+    }
+
 
     public synchronized void save(Uni entry) {
         if (entry.getId() == null) {
@@ -164,15 +169,15 @@ public class UniService {
     }
     
     public synchronized void save2(AcceptedUni entry) {
-        if (entry.getId() == null) {
-            entry.setId(nextId++);
+        if (entry.getId2() == null) {
+            entry.setId2(nextId++);
         }
         try {
             entry = (AcceptedUni) BeanUtils.cloneBean(entry);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-        unis2.put(entry.getId(), entry);
+        unis2.put(entry.getId2(), entry);
     }
 
 }

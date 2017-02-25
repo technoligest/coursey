@@ -1,5 +1,3 @@
 TODO LIST:
 
 1) Accepted button (this button would take uni from pending list and add it to the accepted list)
-2) Fix university name when popup appears. At the moment, it shows empty field.
-3) Create a new popup for accepted list to be able to remove uni from that list if needed. 
