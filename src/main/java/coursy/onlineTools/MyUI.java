@@ -26,9 +26,11 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Theme("mytheme")
 public class MyUI extends UI {
+	Database db = new Database();
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
+		
 		Label label = new Label("<b style=\"font-size:20px\">Welcome</b>",ContentMode.HTML);
 		
 
@@ -36,7 +38,7 @@ public class MyUI extends UI {
 		Button button2 = new Button("Create University Account");
 
 		
-		final VerticalLayout layout = new VerticalLayout();
+		VerticalLayout layout = new VerticalLayout();
 		layout.addComponents(label, button1, button2);
 		layout.setMargin(true);
 		layout.setSpacing(true);
@@ -44,27 +46,42 @@ public class MyUI extends UI {
 		
 		//VerticalLayout initialLayout = createAccountScreen();
 		VerticalLayout mainLayout = new VerticalLayout();
-		mainLayout.setSizeFull();
-		mainLayout.addComponent(layout);
+		//mainLayout.setSizeFull();
+		Button backButton = new Button("Back");
+		mainLayout.addComponents(layout);
+	
 
 		mainLayout.setComponentAlignment(layout, Alignment.TOP_CENTER);
+		VerticalLayout forBackButton = new VerticalLayout();
+		forBackButton.addComponent(backButton);
+		forBackButton.setHeight("10");
 		
-		Button backButton = new Button("Back");
 		setContent(mainLayout);
 		
 		button1.addClickListener( e -> {
-			layout.removeAllComponents();
-			layout.addComponents(backButton,openCourseyAccount());
+//			layout.removeAllComponents();
+//			layout.addComponents(openCourseyAccount());
+			VerticalLayout layout2=requestUniversityAccount();
+			mainLayout.removeAllComponents();
+			mainLayout.addComponents(forBackButton, layout2);
+			mainLayout.setComponentAlignment(layout2, Alignment.TOP_CENTER);
 		});
 		button2.addClickListener( e -> {
-			layout.removeAllComponents();
-			layout.addComponents(backButton,requestUniversityAccount());
+//			layout.removeAllComponents();
+//			layout.addComponents(requestUniversityAccount());
+			VerticalLayout layout2=requestUniversityAccount();
+			mainLayout.removeAllComponents();
+			mainLayout.addComponents(forBackButton, layout2);
+			mainLayout.setComponentAlignment(layout2, Alignment.TOP_CENTER);
 		});
 		
 
 		backButton.addClickListener( e -> {
 			layout.removeAllComponents();
 			layout.addComponents(label, button1, button2);
+			mainLayout.removeAllComponents();
+			mainLayout.addComponents(layout);
+			mainLayout.setComponentAlignment(layout, Alignment.TOP_CENTER);
 		});
 	}
 	
@@ -104,6 +121,11 @@ public class MyUI extends UI {
 			if(password.getValue()==null){
 				return;
 			}
+			if(!password.getValue().equals(passwordConfirm.getValue())){
+				Notification.show("Error. Passwords don't match."+password.getValue());
+				return;
+			}
+			db.add(new CourseyUser(name.getValue(), email.getValue(), password.getValue(), phone.getValue(),userID.getValue()));
 			Notification.show("Account created successfully!");
 		});
 		

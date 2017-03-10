@@ -4,14 +4,14 @@ public class CourseyUser {
 	private String name;
 	private String email;
 	private String password;
-	private String number;
+	private String phoneNumber;
 	private String userID;
 	public CourseyUser(String name, String email, String password, String number, String userID) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.number = number;
+		this.phoneNumber = number;
 		this.userID = userID;
 	}
 	public String getName() {
@@ -32,11 +32,11 @@ public class CourseyUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNumber() {
-		return number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setNumber(String number) {
-		this.number = number;
+	public void setPhoneNumber(String number) {
+		this.phoneNumber = number;
 	}
 	public String getUserID() {
 		return userID;
