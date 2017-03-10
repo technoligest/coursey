@@ -30,7 +30,6 @@ public class MyUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
-		
 		Label label = new Label("<b style=\"font-size:20px\">Welcome</b>",ContentMode.HTML);
 		
 
@@ -126,7 +125,6 @@ public class MyUI extends UI {
 				return;
 			}
 			db.add(new CourseyUser(name.getValue(), email.getValue(), password.getValue(), phone.getValue(),userID.getValue()));
-			Notification.show("Account created successfully!");
 		});
 		
 		
