@@ -26,7 +26,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Title("Coursy")
 @Theme("mytheme")
-public class MyUI extends UI {
+public class CreateAccount extends UI {
 	Database db = new Database();
 
 	@Override
