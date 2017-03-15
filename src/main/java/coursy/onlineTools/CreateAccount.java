@@ -4,6 +4,7 @@ package coursy.onlineTools;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -191,8 +192,8 @@ public class CreateAccount extends UI {
 
 	}
 
-	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+	/*@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+	@VaadinServletConfiguration(ui = CreateAccount.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
-	}
+	}*/
 }

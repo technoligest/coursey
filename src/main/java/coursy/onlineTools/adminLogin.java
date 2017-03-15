@@ -27,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
  * overridden to add component to the user interface and initialize non-component functionality.
  */
 @Theme("mytheme")
-public class AdminLogin extends UI {
+public class adminLogin extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {

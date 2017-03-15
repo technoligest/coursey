@@ -120,7 +120,7 @@ TextField uniFilter= new TextField();
     }
 
     @WebServlet(urlPatterns = "/*")
-    @VaadinServletConfiguration(ui = AdminContolPanel.class, productionMode = false)
+    @VaadinServletConfiguration(ui = AdminControlPanel.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
   }

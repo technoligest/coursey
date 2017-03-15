@@ -149,8 +149,8 @@ public class UniForm extends FormLayout {
     }
 
     @Override
-    public MyUI getUI() {
-        return (MyUI) super.getUI();
+    public AdminControlPanel getUI() {
+        return (AdminControlPanel) super.getUI();
     }
 
 }
