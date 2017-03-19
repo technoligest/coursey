@@ -87,6 +87,7 @@ public class UniForm extends FormLayout {
         try {
         	Notification.show(uni.getUniversityName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);
         	getUI().uniList.addRow(uni);
+        	getUI().getStorage().addUni(uni);
         } catch (Exception e) {
             // Validation exceptions could be shown here
         }
@@ -146,6 +147,7 @@ public class UniForm extends FormLayout {
     }
     private void delete(Button.ClickEvent event) {
         getUI().service2.delete2(AUni);
+        getUI().getStorage().removeAcceptedUni(AUni);
         String msg = String.format(AUni.getUniversityName2()+" DELETED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
         getUI().refreshContacts();

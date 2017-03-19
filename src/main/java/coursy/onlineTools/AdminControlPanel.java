@@ -33,7 +33,9 @@ public class AdminControlPanel extends UI {
 	
 	//creating an instance of UniStorage to hold the pending and accepted universities
 	UniStorage storage = new UniStorage();
-	
+	public UniStorage getStorage(){
+		return storage;
+	}
 	
 	TextField uniFilter= new TextField();
     Grid pendingList = new Grid();
