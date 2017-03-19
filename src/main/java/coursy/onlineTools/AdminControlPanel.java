@@ -44,8 +44,8 @@ public class AdminControlPanel extends UI {
 
     UniForm uniForm = new UniForm();
 
-    UniService service1 = UniService.createDemoService1();
-    UniService service2 = UniService.createDemoService2();
+    UniService pending = UniService.createPending();
+    UniService approved = UniService.createApproved();
 
 
     @Override
@@ -69,7 +69,7 @@ public class AdminControlPanel extends UI {
         pendingList.removeColumn("endDate");
         pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
         pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
-       ArrayList<Uni> sampleUni = service1.findAll(null);
+       ArrayList<Uni> sampleUni = pending.findAll(null);
        for(int i = 0; i < sampleUni.size(); i++){
     	   storage.addUni(sampleUni.get(i));
        }
@@ -83,7 +83,7 @@ public class AdminControlPanel extends UI {
         uniList.removeColumn("endDate2");
         uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
         uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));
-        ArrayList<AcceptedUni> sampleAccepted = (ArrayList<AcceptedUni>) service2.findAllAccepted(null);
+        ArrayList<AcceptedUni> sampleAccepted = (ArrayList<AcceptedUni>) approved.findAllAccepted(null);
         for(int i = 0; i < sampleAccepted.size(); i++){
         	storage.addAcceptedUni(sampleAccepted.get(i));
         }

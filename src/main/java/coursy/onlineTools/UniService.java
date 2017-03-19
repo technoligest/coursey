@@ -30,7 +30,7 @@ public class UniService {
     private static UniService instance;
     private static UniService instance2;
 
-    public static UniService createDemoService1() {
+    public static UniService createPending() {
     	PUNames.add("ABC");
     	PUNames.add("DEF");
     	PUNames.add("GHI");
@@ -70,7 +70,7 @@ public class UniService {
         return instance;
     }
     
-    public static UniService createDemoService2() {
+    public static UniService createApproved() {
     	AUNames.add("DAL");
     	AUNames.add("SMU");
     	AUNames.add("MSVU");

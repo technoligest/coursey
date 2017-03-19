@@ -87,11 +87,21 @@ public class UniForm extends FormLayout {
         try {
         	Notification.show(uni.getUniversityName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);
         	getUI().uniList.addRow(uni);
-        	getUI().getStorage().addUni(uni);
+        	AcceptedUni acc = new AcceptedUni();
+        	acc.setEmail2(uni.getEmail());
+        	acc.setCity2(uni.getCity());
+        	acc.setCountry2(uni.getCountry());
+        	acc.setId2(uni.getId());
+        	acc.setUniversityName2(uni.getUniversityName());
+        	acc.setStartDate2(uni.getStartDate());
+        	acc.setEndDate2(uni.getEndDate());
+        	acc.setTask2(uni.getTask());
+        	getUI().getStorage().addAcceptedUni(acc);
         } catch (Exception e) {
             // Validation exceptions could be shown here
         }
-        getUI().service1.delete(uni);
+        getUI().pending.delete(uni);
+        getUI().getStorage().removeUni(uni);
     	getUI().refreshContacts();
     }
 
@@ -140,13 +150,13 @@ public class UniForm extends FormLayout {
     }
     
     private void deny(Button.ClickEvent event) {
-        getUI().service1.delete(uni);
+        getUI().pending.delete(uni);
         String msg = String.format(uni.getUniversityName()+" DENIED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
         getUI().refreshContacts();
     }
     private void delete(Button.ClickEvent event) {
-        getUI().service2.delete2(AUni);
+        getUI().approved.delete2(AUni);
         getUI().getStorage().removeAcceptedUni(AUni);
         String msg = String.format(AUni.getUniversityName2()+" DELETED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
