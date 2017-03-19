@@ -1,0 +1,6 @@
+Jafar Al-Khalili & Abdullah Safi
+
+Changes made in UniversityAdmin branch:
+
+Updated files from previous iteration (AdminLogin.java & AdminAuthenticationTest.java)
+Implemented page for university admins to edit university programs and their requirements (UniversityAdmin.java, ProgramRequirements.java, ProgramRequirementsTest.java)
