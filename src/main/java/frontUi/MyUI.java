@@ -28,6 +28,13 @@ import views.*;
 @Theme("mytheme")
 public class MyUI extends UI {
 	Navigator navigator;
+	
+	/*
+	 * 
+	 * Initialize the main UI for navigation.
+	 * 
+	 * 
+	 * */
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 
@@ -57,7 +64,9 @@ public class MyUI extends UI {
 		//        setContent(layout);
 	}
 
-
+	/*
+	 * Sets the URL for the servlet
+	 * */
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {

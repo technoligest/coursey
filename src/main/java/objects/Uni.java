@@ -25,7 +25,10 @@ public class Uni implements Serializable, Cloneable {
 	private Date startDate;
 	private Date endDate;
 
-
+	/**
+	 * @return the Id of the University fdjkldsfhjhjlsadkfhs madshjgshlflask
+	 * @author Yaser Alkayale
+	 * */
 	public Long getId() {
 		return id;
 	}
