@@ -117,7 +117,7 @@ public class UniService {
     private HashMap<Long, AcceptedUni> unis2 = new HashMap<>();
     private long nextId = 0;
 
-    public synchronized List<Uni> findAll(String stringFilter) {
+    public synchronized ArrayList<Uni> findAll(String stringFilter) {
         ArrayList arrayList = new ArrayList();
         for (Uni contact : unis.values()) {
             try {

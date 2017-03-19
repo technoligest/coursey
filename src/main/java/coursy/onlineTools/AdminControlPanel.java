@@ -1,5 +1,8 @@
 package coursy.onlineTools;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -18,16 +21,21 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+
+import Database.UniStorage;
+
 import com.vaadin.ui.TextField;
 
 
 @Title("Coursy")
 @Theme("valo")
 public class AdminControlPanel extends UI {
-  Database db = new Database();
-
-
-TextField uniFilter= new TextField();
+	
+	//creating an instance of UniStorage to hold the pending and accepted universities
+	UniStorage storage = new UniStorage();
+	
+	
+	TextField uniFilter= new TextField();
     Grid pendingList = new Grid();
     Grid uniList = new Grid();
 
@@ -50,8 +58,8 @@ TextField uniFilter= new TextField();
         uniFilter.setInputPrompt("Filter approved schools...");
         uniFilter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
-        //pending list
-        pendingList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
+        //pending list uses a UniStorage Container as a source
+        pendingList.setContainerDataSource(storage.getUnis());
         pendingList.setColumnOrder("universityName", "city", "country", "task"); 
         pendingList.removeColumn("id");
         pendingList.removeColumn("email");
@@ -59,9 +67,13 @@ TextField uniFilter= new TextField();
         pendingList.removeColumn("endDate");
         pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
         pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
-     
-        //approved list
-        uniList.setContainerDataSource(new BeanItemContainer<>(AcceptedUni.class));
+       ArrayList<Uni> sampleUni = new ArrayList<Uni>();
+       for(int i = 0; i < sampleUni.size(); i++){
+    	   storage.addUni(sampleUni.get(i));
+       }
+        
+        //approved list uses a UniStorage Container as a source
+        uniList.setContainerDataSource(storage.getAcceptedUnis());
         uniList.setColumnOrder("universityName2", "city2", "country2", "task2"); 
         uniList.removeColumn("id2");
         uniList.removeColumn("email2");
@@ -69,6 +81,10 @@ TextField uniFilter= new TextField();
         uniList.removeColumn("endDate2");
         uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
         uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));
+        ArrayList<AcceptedUni> sampleAccepted = (ArrayList<AcceptedUni>) service2.findAllAccepted(null);
+        for(int i = 0; i < sampleAccepted.size(); i++){
+        	storage.addAcceptedUni(sampleAccepted.get(i));
+        }
         refreshContacts();
        
     }
@@ -110,12 +126,11 @@ TextField uniFilter= new TextField();
     void refreshContacts() {
         refreshContacts(uniFilter.getValue());
     }
-
+   
+    //refreshContacts needs some additional work 
     private void refreshContacts(String stringFilter) {
-      pendingList.setContainerDataSource(new BeanItemContainer<>(
-             Uni.class, service1.findAll(null)));
-      uniList.setContainerDataSource(new BeanItemContainer<>(
-          AcceptedUni.class, service2.findAllAccepted(stringFilter)));
+      pendingList.setContainerDataSource(storage.getUnis());
+      uniList.setContainerDataSource(storage.getAcceptedUnis());
         uniForm.setVisible(false);
     }
 

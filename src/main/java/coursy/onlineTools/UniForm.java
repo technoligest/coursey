@@ -21,7 +21,9 @@ import com.vaadin.ui.themes.ValoTheme;
  * with @PropertyId annotation.
  */
 public class UniForm extends FormLayout {
-
+	
+	
+	
 	Button approve = new Button("Approve", this::approve);
     Button cancel = new Button("Cancel", this::cancel);
     Button deny = new Button("Deny", this::deny);
@@ -36,8 +38,9 @@ public class UniForm extends FormLayout {
     AcceptedUni AUni;
 
     // Easily bind forms to beans and manage validation and buffering
-    BeanFieldGroup<Uni> formFieldBindings;
-
+   BeanFieldGroup<Uni> formFieldBindings;
+    
+    
     public UniForm() {
         configureComponents();
         buildLayout();

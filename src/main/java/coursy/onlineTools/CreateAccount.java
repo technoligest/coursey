@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -18,6 +19,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import Database.UserStorage;
+
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
  * (or tab) or some part of a html page where a Vaadin application is embedded.
@@ -28,7 +31,7 @@ import com.vaadin.ui.VerticalLayout;
 @Title("Coursy")
 @Theme("mytheme")
 public class CreateAccount extends UI {
-	Database db = new Database();
+	 UserStorage users = new UserStorage();
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
@@ -126,7 +129,7 @@ public class CreateAccount extends UI {
 				Notification.show("Error. Passwords don't match."+password.getValue());
 				return;
 			}
-			db.add(new CourseyUser(name.getValue(), email.getValue(), password.getValue(), phone.getValue(),userID.getValue()));
+			users.addUser(new CourseyUser(name.getValue(), email.getValue(), password.getValue(), phone.getValue(),userID.getValue()));
 		});
 		
 		

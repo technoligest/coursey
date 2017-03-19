@@ -1,6 +1,9 @@
-package coursy.onlineTools;
+package Database;
 
 import com.vaadin.data.util.BeanItemContainer;
+
+import coursy.onlineTools.AcceptedUni;
+import coursy.onlineTools.Uni;
 
 public class UniStorage {
 	

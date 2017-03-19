@@ -1,6 +1,8 @@
 package coursy.onlineTools;
 
-public class CourseyUser {
+import java.io.Serializable;
+
+public class CourseyUser implements Serializable{
 	private String name;
 	private String email;
 	private String password;
