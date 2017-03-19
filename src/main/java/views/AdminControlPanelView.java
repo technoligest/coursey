@@ -26,8 +26,8 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 
 	UniForm uniForm = new UniForm(this);
 
-	UniService service1 = UniService.createDemoService1();
-	UniService service2 = UniService.createDemoService2();
+	UniService service1 = UniService.createPending();
+	UniService service2 = UniService.createApproved();
 
 
 	public UniService getService1(){
@@ -52,8 +52,6 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 		pendingList.setColumnOrder("universityName", "city", "country", "task"); 
 		pendingList.removeColumn("id");
 		pendingList.removeColumn("email");
-		pendingList.removeColumn("startDate");
-		pendingList.removeColumn("endDate");
 		pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
 
@@ -62,8 +60,6 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 		uniList.setColumnOrder("universityName2", "city2", "country2", "task2"); 
 		uniList.removeColumn("id2");
 		uniList.removeColumn("email2");
-		uniList.removeColumn("startDate2");
-		uniList.removeColumn("endDate2");
 		uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));
 		refreshContacts();

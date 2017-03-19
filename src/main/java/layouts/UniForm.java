@@ -10,14 +10,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import objects.*;
 import views.AdminControlPanelView;
 
-/* Create custom UI Components.
- *
- * Create your own Vaadin components by inheritance and composition.
- * This is a form component inherited from VerticalLayout. Use
- * Use BeanFieldGroup to bind data fields from DTO to UI fields.
- * Similarly named field by naming convention or customized
- * with @PropertyId annotation.
- */
+
 public class UniForm extends FormLayout {
 
 	AdminControlPanelView acpv;
@@ -37,6 +30,10 @@ public class UniForm extends FormLayout {
 	// Easily bind forms to beans and manage validation and buffering
 	BeanFieldGroup<Uni> formFieldBindings;
 
+	/**
+	 * build layout
+	 * @param acpv
+	 */
 	public UniForm(AdminControlPanelView acpv) {
 		this.acpv=acpv;
 		configureComponents();
@@ -69,16 +66,10 @@ public class UniForm extends FormLayout {
 
 	}
 
-	/*
-	 * Use any JVM language.
-	 *
-	 * Vaadin supports all languages supported by Java Virtual Machine 1.6+.
-	 * This allows you to program user interface in Java 8, Scala, Groovy or any
-	 * other language you choose. The new languages give you very powerful tools
-	 * for organizing your code as you choose. For example, you can implement
-	 * the listener methods in your compositions or in separate controller
-	 * classes and receive to various Vaadin component events, like button
-	 * clicks. Or keep it simple and compact with Lambda expressions.
+
+	/**
+	 * approves a university (takes it away from pending and store it in approved)
+	 * @param event
 	 */
 	public void approve(Button.ClickEvent event) {
 		try {
@@ -91,7 +82,10 @@ public class UniForm extends FormLayout {
 		acpv.refreshContacts();
 	}
 
-
+	/**
+	 * make pop up disappear
+	 * @param event
+	 */
 	public void cancel(Button.ClickEvent event) {
 		// Place to call business logic.
 		Notification.show("Cancelled", Type.TRAY_NOTIFICATION);
@@ -99,6 +93,10 @@ public class UniForm extends FormLayout {
 		acpv.getUniList().select(null);
 	}
 
+	/**
+	 * displays information about the pending university
+	 * @param Uni 
+	 */
 	public void edit(Uni uni) {
 		actions2.setVisible(false);
 		actions.setVisible(true);
@@ -114,6 +112,10 @@ public class UniForm extends FormLayout {
 		}
 		setVisible(uni != null);
 	}
+	/**
+	 * displays information about the approved university
+	 * @param AcceptedUni
+	 */
 	public void edit2(AcceptedUni acceptedUni) {
 		actions2.setVisible(true);
 		actions.setVisible(false);
@@ -123,10 +125,6 @@ public class UniForm extends FormLayout {
 			City.setValue("City: "+acceptedUni.getCity2());
 			Country.setValue("Country: "+acceptedUni.getCountry2());
 			email.setValue("Email: "+acceptedUni.getEmail2());
-
-			// Bind the properties of the contact POJO to fields in this form
-			// formFieldBindings = BeanFieldGroup.bindFieldsUnbuffered(contact,
-			//        this);
 		}
 		setVisible(acceptedUni != null);
 	}
@@ -137,6 +135,8 @@ public class UniForm extends FormLayout {
 		Notification.show(msg, Type.TRAY_NOTIFICATION);
 		acpv.refreshContacts();
 	}
+	
+
 	private void delete(Button.ClickEvent event) {
 		acpv.getService2().delete2(AUni);
 		String msg = String.format(AUni.getUniversityName2()+" DELETED ");
