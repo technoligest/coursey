@@ -1,4 +1,4 @@
-package coursy.onlineTools;
+package objects;
 
 
 import java.io.Serializable;
@@ -17,7 +17,6 @@ import org.apache.commons.beanutils.BeanUtils;
 public class AcceptedUni implements Serializable, Cloneable {
 
     private Long id2;
-
     private String universityName2 = "";
     private String city2 = "";
     private String country2 = "";
@@ -27,34 +26,13 @@ public class AcceptedUni implements Serializable, Cloneable {
     private Date endDate2;
    
 
-    public Long getId2() {
-        return id2;
-    }
-
-    public void setId2(Long id) {
-        this.id2 = id;
-    }
-
-    public String getUniversityName2() {
-        return universityName2;
-    }
-
-    public void setUniversityName2(String universityName) {
-        this.universityName2 = universityName;
-    }
-
-    public String getCity2() {
-        return city2;
-    }
-
-    public void setCity2(String city) {
-        this.city2 = city;
-    }
-
-    public String getCountry2() {
-        return country2;
-    }
-
+    public Long getId2() { return id2; }
+    public void setId2(Long id) { this.id2 = id; }
+    public String getUniversityName2() { return universityName2; }
+    public void setUniversityName2(String universityName) { this.universityName2 = universityName; }
+    public String getCity2() { return city2; }
+    public void setCity2(String city) { this.city2 = city; }
+    public String getCountry2() { return country2; }
     public void setCountry2(String country) {
         this.country2 = country;
     }

@@ -1,6 +1,9 @@
 package coursy.onlineTools;
 import java.util.*;
 import org.junit.Test;
+
+import coursy.onlineTools.AdminLogin;
+
 import static org.junit.Assert.assertEquals;
 
 public class AdminAuthenticationTest {

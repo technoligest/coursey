@@ -1,4 +1,4 @@
-package coursy.onlineTools;
+package objects;
 
 public class CourseyUser {
 	private String name;
@@ -44,5 +44,5 @@ public class CourseyUser {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	
+
 }
