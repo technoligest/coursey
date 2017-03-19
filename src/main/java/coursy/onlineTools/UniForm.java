@@ -21,7 +21,7 @@ import com.vaadin.ui.themes.ValoTheme;
  * with @PropertyId annotation.
  */
 public class UniForm extends FormLayout {
-	
+	AdminControlPanelView acpv;
 	
 	
 	Button approve = new Button("Approve", this::approve);
@@ -41,7 +41,8 @@ public class UniForm extends FormLayout {
    BeanFieldGroup<Uni> formFieldBindings;
     
     
-    public UniForm() {
+    public UniForm(AdminControlPanelView acpv) {
+		this.acpv=acpv;
         configureComponents();
         buildLayout();
     }
@@ -86,7 +87,7 @@ public class UniForm extends FormLayout {
     public void approve(Button.ClickEvent event) {
         try {
         	Notification.show(uni.getUniversityName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);
-        	getUI().uniList.addRow(uni);
+        	acpv.getUniList().addRow(uni);
         	AcceptedUni acc = new AcceptedUni();
         	acc.setEmail2(uni.getEmail());
         	acc.setCity2(uni.getCity());
@@ -100,17 +101,17 @@ public class UniForm extends FormLayout {
         } catch (Exception e) {
             // Validation exceptions could be shown here
         }
-        getUI().pending.delete(uni);
-        getUI().getStorage().removeUni(uni);
-    	getUI().refreshContacts();
+        acpv.getPending().delete(uni);
+        acpv.getStorage().removeUni(uni);
+    	acpv.refreshContacts();
     }
 
 
     public void cancel(Button.ClickEvent event) {
         // Place to call business logic.
         Notification.show("Cancelled", Type.TRAY_NOTIFICATION);
-        getUI().pendingList.select(null);
-        getUI().uniList.select(null);
+        acpv.PendingList.select(null);
+        acpv.UniList.select(null);
     }
 
     void edit(Uni uni) {
@@ -150,22 +151,18 @@ public class UniForm extends FormLayout {
     }
     
     private void deny(Button.ClickEvent event) {
-        getUI().pending.delete(uni);
+        acpv.getPending().delete(uni);
         String msg = String.format(uni.getUniversityName()+" DENIED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
-        getUI().refreshContacts();
+        acpv.refreshContacts();
     }
     private void delete(Button.ClickEvent event) {
-        getUI().approved.delete2(AUni);
+        acpv.getApproved().delete2(AUni);
         getUI().getStorage().removeAcceptedUni(AUni);
         String msg = String.format(AUni.getUniversityName2()+" DELETED ");
         Notification.show(msg, Type.TRAY_NOTIFICATION);
-        getUI().refreshContacts();
+        acpv.refreshContacts();
     }
 
-    @Override
-    public AdminControlPanel getUI() {
-        return (AdminControlPanel) super.getUI();
-    }
 
 }

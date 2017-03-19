@@ -123,7 +123,7 @@ public class UniService {
             try {
                 boolean passesFilter = (stringFilter == null || stringFilter.isEmpty())
                         || contact.toString().toLowerCase()
-                                .contains(stringFilter.toLowerCase());
+                            .contains(stringFilter.toLowerCase());
                 if (passesFilter) {
                     arrayList.add(contact.clone());
                 }
@@ -142,7 +142,7 @@ public class UniService {
         return arrayList;
     }
     
-    public synchronized List<AcceptedUni> findAllAccepted(String stringFilter) {
+    public synchronized ArrayList<AcceptedUni> findAllAccepted(String stringFilter) {
         ArrayList arrayList = new ArrayList();
         for (AcceptedUni contact : unis2.values()) {
             try {

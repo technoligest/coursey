@@ -1,4 +1,4 @@
-package coursy.onlineTools;
+package objects;
 
 import java.io.Serializable;
 
@@ -46,5 +46,5 @@ public class CourseyUser implements Serializable{
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	
+
 }
