@@ -69,7 +69,7 @@ public class AdminControlPanel extends UI {
         pendingList.removeColumn("endDate");
         pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
         pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
-       ArrayList<Uni> sampleUni = new ArrayList<Uni>();
+       ArrayList<Uni> sampleUni = service1.findAll(null);
        for(int i = 0; i < sampleUni.size(); i++){
     	   storage.addUni(sampleUni.get(i));
        }
