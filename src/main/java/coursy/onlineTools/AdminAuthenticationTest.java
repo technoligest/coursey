@@ -8,7 +8,7 @@ public class AdminAuthenticationTest {
    //Sample data for testing
    ArrayList<String> sampleAdmins = new ArrayList<String>();
    ArrayList<String> samplePasswords = new ArrayList<String>();
-   adminLogin al = new adminLogin();
+   AdminLogin al = new AdminLogin();
    
    //Search for existing username test
    @Test
@@ -30,7 +30,7 @@ public class AdminAuthenticationTest {
    
    //Search for non-existing username test
    @Test
-   public void testUsernamefail() {
+   public void testUsernameFail() {
 	   	sampleAdmins.add("admin1");
    		sampleAdmins.add("admin2");
    		sampleAdmins.add("admin3");
@@ -74,7 +74,7 @@ public class AdminAuthenticationTest {
    
   //Search for a wrong password
   @Test
-  public void testPassword() {
+  public void testIncorrectPassword() {
 	   	sampleAdmins.add("admin1");
   		sampleAdmins.add("admin2");
   		sampleAdmins.add("admin3");
