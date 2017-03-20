@@ -44,6 +44,7 @@ public class MyUI extends UI {
     	navigator.addView("createUniversityAccount", new CreateUniversityAccountView(navigator));
     	navigator.addView("createCoursyAccount", new CreateCoursyAccountView(navigator));
     	navigator.addView("adminControlPanel", new AdminControlPanelView(navigator));
+    	navigator.addView("adminLogin", new AdminLoginView(navigator));
 
 
 		//    	final VerticalLayout layout = new VerticalLayout();

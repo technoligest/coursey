@@ -1,4 +1,4 @@
-package coursy.onlineTools;
+package objects;
 
 
 import java.util.ArrayList;

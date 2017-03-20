@@ -1,8 +1,9 @@
-package coursy.onlineTools;
+package testing;
 import java.util.*;
 import org.junit.Test;
 
-import coursy.onlineTools.AdminLogin;
+import views.AdminLoginView;
+import views.StartView;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +12,7 @@ public class AdminAuthenticationTest {
    //Sample data for testing
    ArrayList<String> sampleAdmins = new ArrayList<String>();
    ArrayList<String> samplePasswords = new ArrayList<String>();
-   AdminLogin al = new AdminLogin();
+   StartView al = new StartView(null);
    
    //Search for existing username test
    @Test
@@ -100,5 +101,4 @@ public class AdminAuthenticationTest {
   		
 		assertEquals(actualResult, expectedResult);
   }
-
 } 
