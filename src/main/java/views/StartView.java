@@ -73,6 +73,13 @@ public class StartView extends VerticalLayout implements View{
 				nv.navigateTo("adminControlPanel");
 			}
 		});
+		Button testButton2 = new Button("TEST2",
+				new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				nv.navigateTo("adminLogin");
+			}
+		});
 
 		form.addComponent(errorMsg);
 		form.addComponent(successMsg);
@@ -81,6 +88,7 @@ public class StartView extends VerticalLayout implements View{
 		form.addComponent(next);
 		form.addComponent(createAccountButton);
 		form.addComponent(testButton);
+		form.addComponent(testButton2);
 		form.addComponent(login);
 
 		panel.setContent(form);
