@@ -6,14 +6,6 @@ import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-/**
- * A simple DTO for the address book example.
- *
- * Serializable and cloneable Java Object that are typically persisted
- * in the database and can also be easily converted to different formats like JSON.
- */
-// Backend DTO class. This is just a typical Java backend implementation
-// class and nothing Vaadin specific.
 public class AcceptedUni implements Serializable, Cloneable {
 
     private Long id2;
@@ -22,51 +14,91 @@ public class AcceptedUni implements Serializable, Cloneable {
     private String country2 = "";
     private String task2 = "";
     private String email2 = "";
-    private Date startDate2;
-    private Date endDate2;
    
-
-    public Long getId2() { return id2; }
-    public void setId2(Long id) { this.id2 = id; }
-    public String getUniversityName2() { return universityName2; }
-    public void setUniversityName2(String universityName) { this.universityName2 = universityName; }
-    public String getCity2() { return city2; }
-    public void setCity2(String city) { this.city2 = city; }
-    public String getCountry2() { return country2; }
+    
+    public Long getId2() { 
+    	return id2; 
+    }
+    /**
+     * sets id
+     * @param id
+     */
+    public void setId2(Long id) { 
+    	this.id2 = id; 
+    }
+    /**
+     * returns the approved university name
+     * @return
+     */
+    public String getUniversityName2() { 
+    	return universityName2; 
+    }
+    /**
+     * sets approved university name
+     * @param universityName
+     */
+    public void setUniversityName2(String universityName) { 
+    	this.universityName2 = universityName; 
+    }
+    /**
+     * returns the city of the approved university
+     * @return
+     */
+    public String getCity2() { 
+    	return city2; 
+    }
+    /**
+     * sets the city of the approved university 
+     * @param city
+     */
+    public void setCity2(String city) { 
+    	this.city2 = city; 
+    }
+    /**
+     * returns the country of the approved university
+     * @return
+     */
+    public String getCountry2() { 
+    	return country2; 
+    }
+    /**
+     * sets the country of the approved university
+     * @param country
+     */
     public void setCountry2(String country) {
         this.country2 = country;
     }
     
+    /**
+     * returns the task
+     * @return
+     */
     public String getTask2() {
         return task2;
     }
 
+    /**
+     * sets the task
+     * @param task
+     */
     public void setTask2(String task) {
         this.task2 = task;
     }
 
+    /**
+     * returns the email of the approved university
+     * @return
+     */
     public String getEmail2() {
         return email2;
     }
 
+    /**
+     * sets the email of the approved university
+     * @param email
+     */
     public void setEmail2(String email) {
         this.email2 = email;
-    }
-
-    public Date getStartDate2() {
-        return startDate2;
-    }
-
-    public void setStartDate2(Date startDate) {
-        this.startDate2 = startDate;
-    }
-    
-    public Date getEndDate2() {
-        return endDate2;
-    }
-
-    public void setEndDate2(Date endDate) {
-        this.endDate2 = endDate;
     }
 
     @Override
@@ -82,7 +114,7 @@ public class AcceptedUni implements Serializable, Cloneable {
     public String toString() {
         return "Contact{" + "id=" + id2 + ", UniversityName=" + universityName2
                 + ", city=" + city2 + ", task=" + task2 + ", email="
-                + email2 + ", startDate=" + startDate2 + ", endDate=" +endDate2+ '}';
+                + email2 + '}';
     }
 
 }
