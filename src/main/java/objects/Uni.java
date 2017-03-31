@@ -13,14 +13,9 @@ public class Uni implements Serializable, Cloneable {
 	private String universityName = "";
 	private String city = "";
 	private String country = "";
-	private String task = "";
 	private String email = "";
 
 
-	/**
-	 * @return the Id of the University fdjkldsfhjhjlsadkfhs madshjgshlflask
-	 * @author Yaser Alkayale
-	 * */
 	public Long getId() {
 		return id;
 	}
@@ -80,21 +75,6 @@ public class Uni implements Serializable, Cloneable {
 		this.country = country;
 	}
 
-	/**
-	 * return task
-	 * @return
-	 */
-	public String getTask() {
-		return task;
-	}
-
-	/**
-	 * sets task
-	 * @param task
-	 */
-	public void setTask(String task) {
-		this.task = task;
-	}
 
 	/**
 	 * gets email of the pending university
@@ -125,7 +105,7 @@ public class Uni implements Serializable, Cloneable {
 	@Override
 	public String toString() {
 		return "Contact{" + "id=" + id + ", UniversityName=" + universityName
-				+ ", city=" + city + ", task=" + task + ", email="
+				+ ", city=" + city + ", email="
 				+ email + '}';
 	}
 

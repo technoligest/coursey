@@ -12,7 +12,6 @@ public class AcceptedUni implements Serializable, Cloneable {
     private String universityName2 = "";
     private String city2 = "";
     private String country2 = "";
-    private String task2 = "";
     private String email2 = "";
    
     
@@ -69,21 +68,6 @@ public class AcceptedUni implements Serializable, Cloneable {
         this.country2 = country;
     }
     
-    /**
-     * returns the task
-     * @return
-     */
-    public String getTask2() {
-        return task2;
-    }
-
-    /**
-     * sets the task
-     * @param task
-     */
-    public void setTask2(String task) {
-        this.task2 = task;
-    }
 
     /**
      * returns the email of the approved university
@@ -113,7 +97,7 @@ public class AcceptedUni implements Serializable, Cloneable {
     @Override
     public String toString() {
         return "Contact{" + "id=" + id2 + ", UniversityName=" + universityName2
-                + ", city=" + city2 + ", task=" + task2 + ", email="
+                + ", city=" + city2 +  ", email="
                 + email2 + '}';
     }
 

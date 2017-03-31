@@ -22,31 +22,17 @@ public class CreateUniversityAccountView extends VerticalLayout implements View 
 		final TextField password = new TextField();
 		password.setCaption("Create password:");
 
-		final TextField passwordConfirm = new TextField();
-		passwordConfirm.setCaption("Confirm password:");
-
-		final TextField userID = new TextField();
-		userID.setCaption("Enter ID");
-
 		final TextField phone = new TextField();
 		phone.setCaption("Phone number:");
-
 
 		Button button = new Button("Create Account");
 
 		button.addClickListener( e -> {
-			//            layout.addComponent(new Label("Thanks " + name.getValue() 
-			//                    + ", it works!"));
-
 			if(name.getValue()==null){
 				Notification.show("Please input a username.");
 				return;
 			}
 			if(password.getValue()==null){
-				return;
-			}
-			if(!password.getValue().equals(passwordConfirm.getValue())){
-				Notification.show("Error. Passwords don't match."+password.getValue());
 				return;
 			}
 			
@@ -58,7 +44,7 @@ public class CreateUniversityAccountView extends VerticalLayout implements View 
 		backButton.addClickListener( e -> {
 			nv.navigateTo("createAccount");
 		});
-		layout.addComponents(backButton, name,email, password, passwordConfirm, userID, phone, button);
+		layout.addComponents(backButton, name,email, password, phone, button);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("250px");

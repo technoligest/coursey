@@ -1,18 +1,34 @@
 package objects;
 
-public class CourseyUser {
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+public class CourseyUser implements Serializable {
 	private String name;
 	private String email;
 	private String password;
 	private String phoneNumber;
-	private String userID;
-	public CourseyUser(String name, String email, String password, String number, String userID) {
+	private boolean isAdmin = false;
+	public CourseyUser(String name, String email, String password, String number, boolean isAdmin) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phoneNumber = number;
-		this.userID = userID;
+		this.isAdmin = isAdmin;
+	}
+	public void setIsAdmin(boolean isAdmin){
+		this.isAdmin = isAdmin;
+	}
+	public boolean getIsAdmin(boolean isAdmin){
+		return isAdmin;
 	}
 	public String getName() {
 		return name;
@@ -38,11 +54,4 @@ public class CourseyUser {
 	public void setPhoneNumber(String number) {
 		this.phoneNumber = number;
 	}
-	public String getUserID() {
-		return userID;
-	}
-	public void setUserID(String userID) {
-		this.userID = userID;
-	}
-
 }

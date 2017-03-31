@@ -49,7 +49,7 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 
 		//pending list
 		pendingList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
-		pendingList.setColumnOrder("universityName", "city", "country", "task"); 
+		pendingList.setColumnOrder("universityName", "city", "country"); 
 		pendingList.removeColumn("id");
 		pendingList.removeColumn("email");
 		pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
@@ -57,14 +57,12 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 
 		//approved list
 		uniList.setContainerDataSource(new BeanItemContainer<>(AcceptedUni.class));
-		uniList.setColumnOrder("universityName2", "city2", "country2", "task2"); 
+		uniList.setColumnOrder("universityName2", "city2", "country2"); 
 		uniList.removeColumn("id2");
 		uniList.removeColumn("email2");
 		uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));
 		refreshContacts();
-
-
 
 		HorizontalLayout uniActions= new HorizontalLayout(uniFilter);
 		uniActions.setWidth("100%");

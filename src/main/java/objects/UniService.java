@@ -40,17 +40,12 @@ public class UniService {
 		if (PendingInstance == null) {
 
 			final UniService contactService = new UniService();
-
-			Random r = new Random(0);
-			int test = 1;
 			for (int i = 0; i < PUNames.size(); i++) {
 				Uni contact = new Uni();
 				contact.setUniversityName(PUNames.get(i));
 				contact.setCity(PCity.get(i));
 				contact.setCountry(PCountry.get(i));
 				contact.setEmail("info@" + contact.getUniversityName().toLowerCase() + ".com");
-				contact.setTask("TASK #" + test);
-				test++;
 				contactService.save(contact);
 			}
 			PendingInstance = contactService;
@@ -79,17 +74,13 @@ public class UniService {
 		if (ApprovedInstance == null) {
 
 			final UniService contactService = new UniService();
-
-			Random r = new Random(0);
-			int test = 1;
 			for (int i = 0; i < AUNames.size(); i++) {
 				AcceptedUni contact = new AcceptedUni();
 				contact.setUniversityName2(AUNames.get(i));
 				contact.setCity2(ACity.get(i));
 				contact.setCountry2(ACountry.get(i));
 				contact.setEmail2("info@" + contact.getUniversityName2().toLowerCase() + ".com");
-				contact.setTask2("TASK #" + test);
-				test++;
+
 				contactService.save2(contact);
 			}
 			ApprovedInstance = contactService;

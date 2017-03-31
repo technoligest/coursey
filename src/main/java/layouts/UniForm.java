@@ -22,8 +22,8 @@ public class UniForm extends FormLayout {
 	Label City = new Label();
 	Label Country = new Label();
 	Label email = new Label();
-	HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny); 
-	HorizontalLayout actions2 = new HorizontalLayout(cancel, delete);
+	HorizontalLayout PendingActions = new HorizontalLayout(approve, cancel, deny); 
+	HorizontalLayout AcceptedActions = new HorizontalLayout(cancel, delete);
 	Uni uni;
 	AcceptedUni AUni;
 
@@ -57,12 +57,12 @@ public class UniForm extends FormLayout {
 		setMargin(true);
 
 		//HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny);
-		actions.setSpacing(true);
+		PendingActions.setSpacing(true);
 		//HorizontalLayout actions2 = new HorizontalLayout(cancel, delete);
-		actions2.setSpacing(true);
+		AcceptedActions.setSpacing(true);
 
-		addComponents(actions, uniName, City, Country, email);
-		addComponents(actions2, uniName, City, Country, email);
+		addComponents(PendingActions, uniName, City, Country, email);
+		addComponents(AcceptedActions, uniName, City, Country, email);
 
 	}
 
@@ -98,8 +98,8 @@ public class UniForm extends FormLayout {
 	 * @param Uni 
 	 */
 	public void edit(Uni uni) {
-		actions2.setVisible(false);
-		actions.setVisible(true);
+		AcceptedActions.setVisible(false);
+		PendingActions.setVisible(true);
 		this.uni = uni;
 		if (uni != null) {
 			uniName.setValue("University: "+uni.getUniversityName());
@@ -117,8 +117,8 @@ public class UniForm extends FormLayout {
 	 * @param AcceptedUni
 	 */
 	public void edit2(AcceptedUni acceptedUni) {
-		actions2.setVisible(true);
-		actions.setVisible(false);
+		AcceptedActions.setVisible(true);
+		PendingActions.setVisible(false);
 		this.AUni=acceptedUni;
 		if (acceptedUni != null) {
 			uniName.setValue("University: "+acceptedUni.getUniversityName2());
