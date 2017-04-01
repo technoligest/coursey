@@ -1,5 +1,6 @@
 package views;
 
+import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -11,6 +12,8 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import db.PendingUni;
+import db.AcceptedUni;
 import layouts.UniForm;
 import objects.*;
 
@@ -48,18 +51,18 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 		uniFilter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
 		//pending list
-		pendingList.setContainerDataSource(new BeanItemContainer<>(Uni.class));
-		pendingList.setColumnOrder("universityName", "city", "country"); 
-		pendingList.removeColumn("id");
+		pendingList.setContainerDataSource(new JPAContainer<>(PendingUni.class));
+		pendingList.setColumnOrder("name", "city", "country"); 
+		//pendingList.removeColumn("id");
 		pendingList.removeColumn("email");
 		pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
-		pendingList.addSelectionListener( e -> uniForm.edit((Uni) pendingList.getSelectedRow()));
+		pendingList.addSelectionListener( e -> uniForm.edit((PendingUni) pendingList.getSelectedRow()));
 
 		//approved list
-		uniList.setContainerDataSource(new BeanItemContainer<>(AcceptedUni.class));
-		uniList.setColumnOrder("universityName2", "city2", "country2"); 
-		uniList.removeColumn("id2");
-		uniList.removeColumn("email2");
+		uniList.setContainerDataSource(new JPAContainer<>(AcceptedUni.class));
+		uniList.setColumnOrder("name", "city", "country"); 
+		//uniList.removeColumn("id2");
+		uniList.removeColumn("email");
 		uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));
 		refreshContacts();
@@ -100,9 +103,9 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 
 	private void refreshContacts(String stringFilter) {
 		pendingList.setContainerDataSource(new BeanItemContainer<>(
-				Uni.class, service1.findAll(null)));
+				PendingUni.class, service1.findAllPendingUniversitiesJPA()));
 		uniList.setContainerDataSource(new BeanItemContainer<>(
-				AcceptedUni.class, service2.findAllAccepted(stringFilter)));
+				AcceptedUni.class, service2.findAllAcceptedUniversitiesJPA()));
 		uniForm.setVisible(false);
 	}
 	

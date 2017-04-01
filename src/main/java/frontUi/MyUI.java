@@ -55,4 +55,3 @@ public class MyUI extends UI {
 	public static class MyUIServlet extends VaadinServlet {
 	}
 }
-

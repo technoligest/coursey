@@ -1,5 +1,10 @@
 package layouts;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.event.ShortcutAction;
@@ -7,6 +12,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.themes.ValoTheme;
 
+import db.PendingUni;
+import db.AcceptedUni;
 import objects.*;
 import views.AdminControlPanelView;
 
@@ -24,8 +31,12 @@ public class UniForm extends FormLayout {
 	Label email = new Label();
 	HorizontalLayout PendingActions = new HorizontalLayout(approve, cancel, deny); 
 	HorizontalLayout AcceptedActions = new HorizontalLayout(cancel, delete);
-	Uni uni;
+	PendingUni uni;
 	AcceptedUni AUni;
+	
+	static final String url = "jdbc:mysql://localhost:3306/coursey_db?zeroDateTimeBehavior=convertToNull";
+	static final String USER = "root";
+	static final String PASS = "negahban";
 
 	// Easily bind forms to beans and manage validation and buffering
 	BeanFieldGroup<Uni> formFieldBindings;
@@ -71,10 +82,22 @@ public class UniForm extends FormLayout {
 	 * approves a university (takes it away from pending and store it in approved)
 	 * @param event
 	 */
+	
+
 	public void approve(Button.ClickEvent event) {
 		try {
-			Notification.show(uni.getUniversityName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);
-			acpv.getUniList().addRow(uni);
+			Notification.show(uni.getName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);
+			Connection connect;
+			Statement state = null;
+			connect = DriverManager.getConnection(url, USER, PASS);
+			state = connect.createStatement();
+			String id = uni.getName();
+		    String sqlDelete = "DELETE FROM `coursey_db`.`pending_unis` WHERE `name`='"+uni.getName()+"';";
+		    String sqlAdd = "INSERT INTO `coursey_db`.`accepted_unis` (`name`, `city`, `country`, `email`) VALUES ('"+uni.getName()+"', '"+uni.getCity()+"', '"+uni.getCountry()+"', '"+uni.getEmail()+"');";
+		    state.executeUpdate(sqlDelete);
+			state.executeUpdate(sqlAdd);
+			connect.close();
+			
 		} catch (Exception e) {
 			// Validation exceptions could be shown here
 		}
@@ -97,12 +120,12 @@ public class UniForm extends FormLayout {
 	 * displays information about the pending university
 	 * @param Uni 
 	 */
-	public void edit(Uni uni) {
+	public void edit(PendingUni pendingUni) {
 		AcceptedActions.setVisible(false);
 		PendingActions.setVisible(true);
-		this.uni = uni;
-		if (uni != null) {
-			uniName.setValue("University: "+uni.getUniversityName());
+		this.uni = pendingUni;
+		if (pendingUni != null) {
+			uniName.setValue("University: "+ uni.getName());
 			City.setValue("City: "+uni.getCity());
 			Country.setValue("Country: "+uni.getCountry());
 			email.setValue("Email: "+uni.getEmail());
@@ -110,37 +133,49 @@ public class UniForm extends FormLayout {
 
 
 		}
-		setVisible(uni != null);
+		setVisible(pendingUni != null);
 	}
 	/**
 	 * displays information about the approved university
 	 * @param AcceptedUni
 	 */
-	public void edit2(AcceptedUni acceptedUni) {
+	public void edit2(db.AcceptedUni acceptedUni) {
 		AcceptedActions.setVisible(true);
 		PendingActions.setVisible(false);
 		this.AUni=acceptedUni;
 		if (acceptedUni != null) {
-			uniName.setValue("University: "+acceptedUni.getUniversityName2());
-			City.setValue("City: "+acceptedUni.getCity2());
-			Country.setValue("Country: "+acceptedUni.getCountry2());
-			email.setValue("Email: "+acceptedUni.getEmail2());
+			uniName.setValue("University: "+AUni.getName());
+			City.setValue("City: "+AUni.getCity());
+			Country.setValue("Country: "+AUni.getCountry());
+			email.setValue("Email: "+AUni.getEmail());
 		}
 		setVisible(acceptedUni != null);
 	}
 
 	private void deny(Button.ClickEvent event) {
 		acpv.getService1().delete(uni);
-		String msg = String.format(uni.getUniversityName()+" DENIED ");
+		String msg = String.format(uni.getName()+" DENIED ");
 		Notification.show(msg, Type.TRAY_NOTIFICATION);
 		acpv.refreshContacts();
 	}
 	
 
-	private void delete(Button.ClickEvent event) {
-		acpv.getService2().delete2(AUni);
-		String msg = String.format(AUni.getUniversityName2()+" DELETED ");
-		Notification.show(msg, Type.TRAY_NOTIFICATION);
-		acpv.refreshContacts();
+	private void delete(Button.ClickEvent event){
+		String msg = String.format(AUni.getName()+" DELETED ");
+		Connection connect;
+		Statement state;
+		try {
+			connect = DriverManager.getConnection(url, USER, PASS);
+			state = connect.createStatement();
+		    String sqlDelete = "DELETE FROM `coursey_db`.`accepted_unis` WHERE `name`='"+AUni.getName()+"';";
+		    state.executeUpdate(sqlDelete);
+		    Notification.show(msg, Type.TRAY_NOTIFICATION);
+			acpv.refreshContacts();
+			connect.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
