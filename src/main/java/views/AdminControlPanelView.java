@@ -19,7 +19,6 @@ import objects.*;
 
 
 public class AdminControlPanelView extends VerticalLayout implements View{
-	//Database db = new Database();
 
 	Navigator nv;
 	TextField uniFilter= new TextField();
@@ -47,13 +46,10 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 	}
 	public  AdminControlPanelView(Navigator nv){
 		this.nv =nv;
-		uniFilter.setInputPrompt("Filter approved schools...");
-		uniFilter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
 		//pending list
 		pendingList.setContainerDataSource(new JPAContainer<>(PendingUni.class));
 		pendingList.setColumnOrder("name", "city", "country"); 
-		//pendingList.removeColumn("id");
 		pendingList.removeColumn("email");
 		pendingList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		pendingList.addSelectionListener( e -> uniForm.edit((PendingUni) pendingList.getSelectedRow()));
@@ -61,7 +57,6 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 		//approved list
 		uniList.setContainerDataSource(new JPAContainer<>(AcceptedUni.class));
 		uniList.setColumnOrder("name", "city", "country"); 
-		//uniList.removeColumn("id2");
 		uniList.removeColumn("email");
 		uniList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		uniList.addSelectionListener(e -> uniForm.edit2((AcceptedUni) uniList.getSelectedRow()));

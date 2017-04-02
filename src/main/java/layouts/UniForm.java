@@ -97,12 +97,11 @@ public class UniForm extends FormLayout {
 		    state.executeUpdate(sqlDelete);
 			state.executeUpdate(sqlAdd);
 			connect.close();
+			acpv.refreshContacts();
 			
 		} catch (Exception e) {
 			// Validation exceptions could be shown here
 		}
-		acpv.getService1().delete(uni);
-		acpv.refreshContacts();
 	}
 
 	/**
@@ -153,10 +152,20 @@ public class UniForm extends FormLayout {
 	}
 
 	private void deny(Button.ClickEvent event) {
-		acpv.getService1().delete(uni);
-		String msg = String.format(uni.getName()+" DENIED ");
-		Notification.show(msg, Type.TRAY_NOTIFICATION);
-		acpv.refreshContacts();
+		Connection connect;
+		Statement state;
+		try {
+			Notification.show(uni.getName() + " has been DENIED!", Type.TRAY_NOTIFICATION);
+			connect = DriverManager.getConnection(url, USER, PASS);
+			state = connect.createStatement();
+		    String sqlDelete = "DELETE FROM `coursey_db`.`pending_unis` WHERE `name`='"+uni.getName()+"';";
+		    state.executeUpdate(sqlDelete);
+			acpv.refreshContacts();
+			connect.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

@@ -117,7 +117,6 @@ public class StartView extends VerticalLayout implements View{
 					password.setVisible(true);
 					login.setVisible(true);
 					int index = findUsername(user, name.getValue()) -1;
-					System.out.println(index);
 					login.addClickListener( e2 -> {
 						if(!password.getValue().equals("")){
 							boolean passFound = findPassword(user, password.getValue(),findUsername(user, name.getValue()));
