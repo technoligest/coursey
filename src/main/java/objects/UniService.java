@@ -15,14 +15,7 @@ import db.PendingUni;
 import db.AcceptedUni;
 
 public class UniService {
-	
-	//Pending uni lists
 
-
-	    
-
-	
-	
 	private static UniService PendingInstance;
 	private static UniService ApprovedInstance;
 

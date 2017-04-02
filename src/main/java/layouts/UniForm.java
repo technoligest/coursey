@@ -37,10 +37,8 @@ public class UniForm extends FormLayout {
 	static final String url = "jdbc:mysql://localhost:3306/coursey_db?zeroDateTimeBehavior=convertToNull";
 	static final String USER = "root";
 	static final String PASS = "negahban";
-
-	// Easily bind forms to beans and manage validation and buffering
-	BeanFieldGroup<Uni> formFieldBindings;
-
+	
+	
 	/**
 	 * build layout
 	 * @param acpv
@@ -52,12 +50,6 @@ public class UniForm extends FormLayout {
 	}
 
 	private void configureComponents() {
-		/*
-		 * Highlight primary actions.
-		 *
-		 * With Vaadin built-in styles you can highlight the primary save button
-		 * and give it a keyboard shortcut for a better UX.
-		 */
 		approve.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		approve.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 		setVisible(false);
@@ -67,9 +59,7 @@ public class UniForm extends FormLayout {
 		setSizeUndefined();
 		setMargin(true);
 
-		//HorizontalLayout actions = new HorizontalLayout(approve, cancel, deny);
 		PendingActions.setSpacing(true);
-		//HorizontalLayout actions2 = new HorizontalLayout(cancel, delete);
 		AcceptedActions.setSpacing(true);
 
 		addComponents(PendingActions, uniName, City, Country, email);
@@ -92,8 +82,15 @@ public class UniForm extends FormLayout {
 			connect = DriverManager.getConnection(url, USER, PASS);
 			state = connect.createStatement();
 			String id = uni.getName();
-		    String sqlDelete = "DELETE FROM `coursey_db`.`pending_unis` WHERE `name`='"+uni.getName()+"';";
-		    String sqlAdd = "INSERT INTO `coursey_db`.`accepted_unis` (`name`, `city`, `country`, `email`) VALUES ('"+uni.getName()+"', '"+uni.getCity()+"', '"+uni.getCountry()+"', '"+uni.getEmail()+"');";
+		    
+			String sqlDelete = "DELETE "
+		    		+ "FROM `coursey_db`.`pending_unis` "
+		    		+ "WHERE `name`='"+uni.getName()+"';";
+		    String sqlAdd = "INSERT "
+		    		+ "INTO `coursey_db`.`accepted_unis` "
+		    		+ "(`name`, `city`, `country`, `email`) "
+		    		+ "VALUES ('"+uni.getName()+"', '"+uni.getCity()+"', '"+uni.getCountry()+"', '"+uni.getEmail()+"');";
+		   
 		    state.executeUpdate(sqlDelete);
 			state.executeUpdate(sqlAdd);
 			connect.close();
@@ -158,7 +155,11 @@ public class UniForm extends FormLayout {
 			Notification.show(uni.getName() + " has been DENIED!", Type.TRAY_NOTIFICATION);
 			connect = DriverManager.getConnection(url, USER, PASS);
 			state = connect.createStatement();
-		    String sqlDelete = "DELETE FROM `coursey_db`.`pending_unis` WHERE `name`='"+uni.getName()+"';";
+			
+		    String sqlDelete = "DELETE "
+		    		+ "FROM `coursey_db`.`pending_unis` "
+		    		+ "WHERE `name`='"+uni.getName()+"';";
+		    
 		    state.executeUpdate(sqlDelete);
 			acpv.refreshContacts();
 			connect.close();

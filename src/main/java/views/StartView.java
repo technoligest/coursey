@@ -86,8 +86,8 @@ public class StartView extends VerticalLayout implements View{
 		form.addComponent(password);
 		form.addComponent(next);
 		form.addComponent(createAccountButton);
-		form.addComponent(testButton);
-		form.addComponent(testButton2);
+		//form.addComponent(testButton);
+		//form.addComponent(testButton2);
 		form.addComponent(login);
 
 		panel.setContent(form);
