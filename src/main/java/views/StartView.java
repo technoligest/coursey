@@ -18,11 +18,14 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import db.CourseyUser;
+import frontUi.MyUI;
+
 import java.util.*;
 
 public class StartView extends VerticalLayout implements View{
 	private Navigator nv;
-
+	
+	
 	public StartView(Navigator nv){
 		this.nv=nv;
 
@@ -65,20 +68,7 @@ public class StartView extends VerticalLayout implements View{
 				nv.navigateTo("createAccount");
 			}
 		});
-		Button testButton = new Button("TEST",
-				new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				nv.navigateTo("adminControlPanel");
-			}
-		});
-		Button testButton2 = new Button("TEST2",
-				new Button.ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				nv.navigateTo("adminLogin");
-			}
-		});
+
 
 		form.addComponent(errorMsg);
 		form.addComponent(successMsg);
@@ -86,8 +76,6 @@ public class StartView extends VerticalLayout implements View{
 		form.addComponent(password);
 		form.addComponent(next);
 		form.addComponent(createAccountButton);
-		//form.addComponent(testButton);
-		//form.addComponent(testButton2);
 		form.addComponent(login);
 
 		panel.setContent(form);
@@ -106,31 +94,44 @@ public class StartView extends VerticalLayout implements View{
 			if(!name.getValue().equals("")){
 				if(findUsername(user, name.getValue()) > -1)
 					found = true;
-				else
+				else{
 					found = false;
+				}
 				if(found == true){
-					successMsg.setValue("Welcome " + name.getValue() + ", please input your password!");
+					successMsg.setValue("Please input your password!");
 					successMsg.setVisible(true);
 					errorMsg.setVisible(false);
 					name.setVisible(false);
 					next.setVisible(false);
 					password.setVisible(true);
 					login.setVisible(true);
-					int index = findUsername(user, name.getValue()) -1;
+					createAccountButton.setVisible(false);
+					int index = findUsername(user, name.getValue());
 					login.addClickListener( e2 -> {
 						if(!password.getValue().equals("")){
 							boolean passFound = findPassword(user, password.getValue(),findUsername(user, name.getValue()));
 							if(passFound == true){
-								if(user.get(index).getStatus() == 2){
+								if(user.get(index).getRole() == 2){
 									successMsg.setValue("Welcome " + name.getValue() + ", login is successfull!");
+									//populate nv with status == 2 views only
 									nv.navigateTo("adminControlPanel");
 									successMsg.setVisible(true);
 									errorMsg.setVisible(false);
 									login.setEnabled(false);
 									password.setReadOnly(true);
-								}else if(user.get(index).getStatus() == 1){
+								}else if(user.get(index).getRole() == 1){
 									successMsg.setValue("Welcome " + name.getValue() + ", login is successfull!");
 									nv.navigateTo("adminLogin");
+									successMsg.setVisible(true);
+									errorMsg.setVisible(false);
+									login.setEnabled(false);
+									password.setReadOnly(true);
+								}if(user.get(index).getRole() == 0){
+									successMsg.setValue("Welcome " + name.getValue() + ", login is successfull!");
+									MyUI.user.setEmail(user.get(index).getEmail());
+									MyUI.user.setName(user.get(index).getName());
+									MyUI.user.setPhoneNumber(user.get(index).getPhoneNumber());
+									MyUI.user.setPassword(user.get(index).getPassword());
 									successMsg.setVisible(true);
 									errorMsg.setVisible(false);
 									login.setEnabled(false);
@@ -171,18 +172,19 @@ public class StartView extends VerticalLayout implements View{
 
 	//Search for username in an arraylist and return its index if exist, otherwise return -1
 	public static int findUsername(List<CourseyUser> users, String name){
-		int i;
-		for(i=0; i<users.size(); i++){
-			if(users.get(i).equals(name)){
+		int index = -1;
+		for(int i=0; i<users.size(); i++){
+			if(users.get(i).getEmail().equals(name)){
+				index = i;
 				break;
 			}
 		}
-		return i-1;
+		return index;
 	}
 	//Search if a password matches a specific username
 	public static boolean findPassword(List<CourseyUser> user, String password,int index){
 		boolean match = false;
-		if(user.get(index-1).getPassword().equals(password))
+		if(user.get(index).getPassword().equals(password))
 			match = true;
 		return match;
 		

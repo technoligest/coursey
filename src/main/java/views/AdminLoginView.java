@@ -1,7 +1,11 @@
 package views;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -13,6 +17,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import db.*;
 import objects.ProgramRequirements;
 
 public class AdminLoginView extends VerticalLayout implements View{
@@ -41,6 +46,16 @@ public class AdminLoginView extends VerticalLayout implements View{
     	programsList.add(eng);
     	programsList.add(cs);
     	
+    	
+		List<Program> unis = new ArrayList();
+        JPAContainer<Program> jpaUser = 
+        		JPAContainerFactory.make(Program.class, "courseyDB");
+        Collection<Object> resultList = jpaUser.getItemIds();
+        for (Object objId : resultList) {
+        	unis.add(jpaUser.getItem(objId).getEntity());
+        }
+    	
+    	
     	//Programs list panel
     	Panel programs = new Panel("Available Programs");
     	Label successMsg = new Label();
@@ -48,8 +63,8 @@ public class AdminLoginView extends VerticalLayout implements View{
     	successMsg.setWidth("475px");
         Grid programsTable = new Grid();
         programsTable.addColumn("Program Name");
-        for(int i=0; i<programsList.size(); i++){
-            programsTable.addRow(programsList.get(i).getProgramName());
+        for(int i=0; i<unis.size(); i++){
+            programsTable.addRow(unis.get(i).getProgName());
         }
  
         //Create new program

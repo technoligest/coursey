@@ -16,6 +16,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import db.CourseyUser;
 import views.*;
 
 /**
@@ -28,7 +29,7 @@ import views.*;
 @Theme("mytheme")
 public class MyUI extends UI {
 	Navigator navigator;
-	
+	public static CourseyUser user;
 	/*
 	 * 
 	 * Initialize the main UI for navigation.

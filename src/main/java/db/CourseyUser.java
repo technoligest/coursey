@@ -16,13 +16,15 @@ public class CourseyUser implements Serializable {
 	@Id
 	private String email;
 
+	private String attends;
+
 	private String name;
 
 	private String password;
 
 	private String phoneNumber;
 
-	private int status;
+	private int role;
 
 	public CourseyUser() {
 	}
@@ -33,6 +35,14 @@ public class CourseyUser implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getAttends() {
+		return this.attends;
+	}
+
+	public void setAttends(String attends) {
+		this.attends = attends;
 	}
 
 	public String getName() {
@@ -59,12 +69,12 @@ public class CourseyUser implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getStatus() {
-		return this.status;
+	public int getRole() {
+		return this.role;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setRole(int role) {
+		this.role = role;
 	}
 
 }
