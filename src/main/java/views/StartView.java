@@ -159,8 +159,7 @@ public class StartView extends VerticalLayout implements View{
 
 		});
 
-		//layout.addComponents(name, next);
-		//layout.addComponents(password, login);
+
 		layout.addComponent(panel);
 		layout.setMargin(true);
 		layout.setSpacing(true);

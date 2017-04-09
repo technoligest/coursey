@@ -106,6 +106,8 @@ public class CreateCoursyAccountView extends VerticalLayout implements View {
 
 		addComponents(layout);
 	}
+
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub

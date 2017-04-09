@@ -2,14 +2,17 @@ package objects;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
+import db.*;
 
 public class ProgramRequirements {
 	String programName;
-	ArrayList<String> courses = new ArrayList<String>();
+	ArrayList<String> courses = new ArrayList<>();
 	//Constructor
-	public ProgramRequirements(String p, ArrayList<String> c){
+	public ProgramRequirements(String p, ArrayList<String> arrayList){
 		programName = p;
-		courses = c;
+		courses = arrayList;
 	}
 	//set and get methods
 	public void setProgramName(String p){
@@ -30,7 +33,8 @@ public class ProgramRequirements {
 	}
 	//Add a course to the course requirements list
 	public void addCourse(String courseName){
-		courses.add(courseName);
+		//courses.add(courseName);
+		
 	}
 	//Rename a course in the course requirements list
 	public void editCourse(String prevName, String newName){

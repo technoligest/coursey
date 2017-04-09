@@ -47,14 +47,6 @@ public class AdminLoginView extends VerticalLayout implements View{
     	programsList.add(cs);
     	
     	
-		List<Program> unis = new ArrayList();
-        JPAContainer<Program> jpaUser = 
-        		JPAContainerFactory.make(Program.class, "courseyDB");
-        Collection<Object> resultList = jpaUser.getItemIds();
-        for (Object objId : resultList) {
-        	unis.add(jpaUser.getItem(objId).getEntity());
-        }
-    	
     	
     	//Programs list panel
     	Panel programs = new Panel("Available Programs");
@@ -63,8 +55,8 @@ public class AdminLoginView extends VerticalLayout implements View{
     	successMsg.setWidth("475px");
         Grid programsTable = new Grid();
         programsTable.addColumn("Program Name");
-        for(int i=0; i<unis.size(); i++){
-            programsTable.addRow(unis.get(i).getProgName());
+        for(int i=0; i<programsList.size(); i++){
+            programsTable.addRow(programsList.get(i).getProgramName());
         }
  
         //Create new program
@@ -117,6 +109,7 @@ public class AdminLoginView extends VerticalLayout implements View{
         //event listener for pressing program name from list of programs
         programsTable.addItemClickListener(event -> 
         	{
+        		selectedCourse = "";
         		selectedProgram = String.valueOf(event.getItem());
         		coursesTable = new Grid();
         		renderRequirements(coursesTable, main, selectedProgram, programsList);
@@ -143,7 +136,7 @@ public class AdminLoginView extends VerticalLayout implements View{
             requirements.setVisible(false);
             editCoursesPanel.setVisible(false);
             //check if the user has selected a valid course before pressing "rename"
-            if(prevName == null){
+            if(prevName == null || selectedCourse.equals("")){
         		successMsg.setValue("No course has been selected to rename. " + selectedProgram + " has not been updated" );
         		successMsg.setVisible(true);
             }
@@ -163,7 +156,7 @@ public class AdminLoginView extends VerticalLayout implements View{
             requirements.setVisible(false);
             editCoursesPanel.setVisible(false);
             //check if the user has selected a valid course before pressing "remove"
-            if(selectedCourse == null){
+            if(selectedCourse == null || selectedCourse.equals("")){
         		successMsg.setValue("No course has been selected to be deleted. " + selectedProgram + " has not been updated" );
         		successMsg.setVisible(true);
             }
@@ -177,21 +170,43 @@ public class AdminLoginView extends VerticalLayout implements View{
         	//Add the new course to the selected program
             for(int i=0; i<programsList.size(); i++){
             	if(programsList.get(i).getProgramName().equals(selectedProgram)){
-	            	programsList.get(i).addCourse(String.valueOf(courseName.getValue()));
+            		if(!String.valueOf(courseName.getValue()).equals("") && programsList.get(i).getProgramCourses().contains(String.valueOf(courseName.getValue())) != true){
+            				programsList.get(i).addCourse(String.valueOf(courseName.getValue()));
+            	            requirements.setVisible(false);
+            	            editCoursesPanel.setVisible(false);
+            	    		successMsg.setValue(String.valueOf(courseName.getValue()) + " has been added to " + selectedProgram + " requirements.");
+            	    		successMsg.setVisible(true);
+            		}
+            		else{
+	                        requirements.setVisible(false);
+	                        editCoursesPanel.setVisible(false);
+	                		successMsg.setValue("Invalid course name.");
+	                		successMsg.setVisible(true);
+            		}
             	}
             }
-            requirements.setVisible(false);
-            editCoursesPanel.setVisible(false);
-    		successMsg.setValue(String.valueOf(courseName.getValue()) + " has been added to " + selectedProgram + " requirements.");
-    		successMsg.setVisible(true);
+
         });
         
         //event listener for creating a new program
         createProgramButton.addClickListener( event6 -> {
-        	//Create new ProgramRequirements object
-        	programsList.add(new ProgramRequirements(programName.getValue(), new ArrayList<String>()));
-        	//Add the new program to the programs table
-        	programsTable.addRow(programsList.get(programsList.size()-1).getProgramName());
+        	boolean found = false;
+        	for(int i=0; i<programsList.size(); i++){
+        		if(programsList.get(i).getProgramName().equals(programName.getValue()) || programName.getValue().equals("")){
+        			found = true;
+        		}
+        	}
+        	if(found == false){
+	        	//Create new ProgramRequirements object
+	        	programsList.add(new ProgramRequirements(programName.getValue(), new ArrayList<String>()));
+	        	//Add the new program to the programs table
+	        	programsTable.addRow(programsList.get(programsList.size()-1).getProgramName());
+        	}
+        	else{
+        		successMsg.setValue("Invalid program name.");
+        		successMsg.setVisible(true);
+        	}
+        	found = false;
         });
         addComponent(container);
 	}

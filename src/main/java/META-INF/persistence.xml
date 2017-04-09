@@ -3,7 +3,6 @@
   <persistence-unit name="courseyDB" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>db.PendingUni</class>
-    <class>db.Cours</class>
     <class>db.Courses</class>
     <class>db.Program</class>
     <class>db.AcceptedUni</class>

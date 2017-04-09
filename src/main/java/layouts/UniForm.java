@@ -82,10 +82,9 @@ public class UniForm extends FormLayout {
 			connect = DriverManager.getConnection(url, USER, PASS);
 			state = connect.createStatement();
 			String id = uni.getName();
-		    
 			String sqlDelete = "DELETE "
 		    		+ "FROM `coursey_db`.`pending_unis` "
-		    		+ "WHERE `name`='"+uni.getName()+"';";
+		    		+ "WHERE `name`='"+doubleQuote(uni.getName())+"';";
 		    String sqlAdd = "INSERT "
 		    		+ "INTO `coursey_db`.`accepted_unis` "
 		    		+ "(`name`, `city`, `country`, `email`) "
@@ -187,5 +186,15 @@ public class UniForm extends FormLayout {
 			e.printStackTrace();
 		}
 		
+	}
+	private static String doubleQuote(String input){
+		String result="";
+		for(int i=0; i<input.length()-1;++i){
+			result+=input.charAt(i);
+			if(input.charAt(i)=='\'' ){
+				result+='\'';
+			}
+		}
+		return result;
 	}
 }
