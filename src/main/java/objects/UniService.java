@@ -22,7 +22,7 @@ public class UniService {
 	
 	/**
 	 * returns information and fills the grid for pending list
-	 * @return
+	 * @return UniService which is the current Uniservice Provided after creating a pending university 
 	 */
 	public static UniService createPending() {
 		List<PendingUni> pendingList = new ArrayList();
@@ -50,7 +50,7 @@ public class UniService {
 
 	/**
 	 * returns information and fills the grid for pending list
-	 * @return
+	 * @return UniService after creating an approved university
 	 */
 	public static UniService createApproved() {
 		List<AcceptedUni> acceptedList = new ArrayList();
@@ -79,8 +79,7 @@ public class UniService {
 
 	/**
 	 * used for filering and refreshing pending list
-	 * @param stringFilter
-	 * @return
+	 * @return List<PendingUni> a List of all pending universites
 	 */
 
 	public synchronized List<PendingUni> findAllPendingUniversitiesJPA() {

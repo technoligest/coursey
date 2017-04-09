@@ -5,9 +5,14 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the CourseyUser database table.
- * 
- */
+* <h1>Coursey User</h1>
+* This is a user(student) of our software who would have access to 
+* their university infomation only.
+* 
+* @author  Abdullah N.
+* @version 1.0
+* @since   2016-04-05 
+*/
 @Entity
 @NamedQuery(name="CourseyUser.findAll", query="SELECT c FROM CourseyUser c")
 public class CourseyUser implements Serializable {

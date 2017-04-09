@@ -23,6 +23,7 @@ public class ProgramRequirementsTest {
 		   	sample.addCourse("Algorithms");
 		   	int expectedResult = 3;
 	   		int actualResult = sample.getProgramCourses().size();
+	   		System.out.println(actualResult);
 			assertEquals(actualResult, expectedResult);
 	   }
 	   

@@ -70,10 +70,8 @@ public class UniForm extends FormLayout {
 
 	/**
 	 * approves a university (takes it away from pending and store it in approved)
-	 * @param event
+	 * @param event which is the event of the approve button being clicked
 	 */
-	
-
 	public void approve(Button.ClickEvent event) {
 		try {
 			Notification.show(uni.getName() + " has been APPROVED!", Type.TRAY_NOTIFICATION);

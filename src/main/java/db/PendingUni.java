@@ -5,9 +5,13 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the pending_unis database table.
- * 
- */
+* <h1>Pending Univeristy</h1>
+* This is a University that has requested access to our software but has not been approved yet.
+* 
+* @author  Abdullah N.
+* @version 1.0
+* @since   2016-04-05 
+*/
 @Entity
 @Table(name="pending_unis")
 @NamedQuery(name="PendingUni.findAll", query="SELECT p FROM PendingUni p")

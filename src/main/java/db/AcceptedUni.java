@@ -5,8 +5,8 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the accepted_unis database table.
- * 
+ * <H1>Accepted University</H1>
+ * This class helps us store an accepted university into the table .
  */
 @Entity
 @Table(name="accepted_unis")

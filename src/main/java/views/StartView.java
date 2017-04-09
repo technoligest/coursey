@@ -81,7 +81,7 @@ public class StartView extends VerticalLayout implements View{
 		panel.setContent(form);
 
 		
-		List<CourseyUser> user = new ArrayList();
+		List<CourseyUser> user = new ArrayList<CourseyUser>();
         JPAContainer<CourseyUser> jpaUser = 
         		JPAContainerFactory.make(CourseyUser.class, "courseyDB");
         Collection<Object> resultList = jpaUser.getItemIds();

@@ -33,7 +33,7 @@ public class ProgramRequirements {
 	}
 	//Add a course to the course requirements list
 	public void addCourse(String courseName){
-		//courses.add(courseName);
+		courses.add(courseName);
 		
 	}
 	//Rename a course in the course requirements list

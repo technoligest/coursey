@@ -5,9 +5,13 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the Programs database table.
- * 
- */
+* <h1>Program</h1>
+* This is a given program at a university which could be a degree or a certificate
+* 
+* @author  Abdullah N.
+* @version 1.0
+* @since   2016-04-05 
+*/
 @Entity
 @Table(name="Programs")
 @NamedQuery(name="Program.findAll", query="SELECT p FROM Program p")
