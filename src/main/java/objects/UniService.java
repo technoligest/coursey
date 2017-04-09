@@ -13,7 +13,11 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import db.CourseyUser;
 import db.PendingUni;
 import db.AcceptedUni;
-
+/**
+ * Helps us view and display the University views
+ * @author Technoligest
+ *
+ */
 public class UniService {
 
 	private static UniService PendingInstance;
@@ -79,7 +83,7 @@ public class UniService {
 
 	/**
 	 * used for filering and refreshing pending list
-	 * @return List<PendingUni> a List of all pending universites
+	 * @return List a List of all pending universites
 	 */
 
 	public synchronized List<PendingUni> findAllPendingUniversitiesJPA() {
@@ -95,10 +99,8 @@ public class UniService {
 	
 	/**
 	 * used for filtering and refreshing approved list
-	 * @param stringFilter
-	 * @return
+	 * @return List of Universities which have been accepted.
 	 */
-	
 	public synchronized List<AcceptedUni> findAllAcceptedUniversitiesJPA() {
         List<AcceptedUni> arrayList = new ArrayList();
         JPAContainer<AcceptedUni> jpaContainer = JPAContainerFactory.make(AcceptedUni.class, "courseyDB");
@@ -106,7 +108,6 @@ public class UniService {
         for (Object objId : resultList) {
             arrayList.add(jpaContainer.getItem(objId).getEntity());
         }
-
         return arrayList;
     }
 }

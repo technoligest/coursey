@@ -26,10 +26,12 @@ import views.*;
 public class MyUI extends UI {
 	Navigator navigator;
 	public static CourseyUser user;
-	/*
+	/**
 	 * 
 	 * Initialize the main UI for navigation.
+	 * This is how vaadin is initialized and where all the views are created
 	 * 
+	 * @param vaadinRequest a vaadin request which initializes the server 
 	 * 
 	 * */
 	@Override
@@ -45,9 +47,11 @@ public class MyUI extends UI {
     	navigator.addView("requestView" , new Request(navigator));
 	}
 
-	/*
-	 * Sets the URL for the servlet
-	 * */
+	/**
+	  * Sets the URL for the servlet
+	  * Thiis allows us to access our site through the browser 
+	  *
+	  * */
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {

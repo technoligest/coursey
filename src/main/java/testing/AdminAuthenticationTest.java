@@ -7,14 +7,23 @@ import views.AdminLoginView;
 import views.StartView;
 
 import static org.junit.Assert.assertEquals;
-
+/**
+ * <h1>Admin Authentication Test</h1>
+ * This class tests the authentication functionality for users
+ * It is using JUnit tests
+ * 
+ * @author Technoligest
+ *
+ */
 public class AdminAuthenticationTest {
 
    //Sample data for testing
    List<CourseyUser> users = new ArrayList<CourseyUser>();
    StartView al = new StartView(null);
    
-   //Search for existing username test
+   /**
+    * Searching for an existing username
+    */
    @Test
    public void testUsernameSucess() {
 	   	CourseyUser user1 = new CourseyUser();
@@ -27,13 +36,14 @@ public class AdminAuthenticationTest {
 	   	users.add(user2);
 	   	users.add(user3);
    		boolean expectedResult = true;
-   		boolean actualResult;
-   		actualResult =!(al.findUsername(users, "user2@coursey.com") == -1);
+   		boolean actualResult = al.findUsername(users, "user2@coursey.com") != -1;
    		
 		assertEquals(actualResult, expectedResult);
    }
    
-   //Search for non-existing username test
+   /**
+    * Searching for a non-existing username
+    */
    @Test
    public void testUsernameFail() {
 	   	CourseyUser user1 = new CourseyUser();
@@ -47,12 +57,14 @@ public class AdminAuthenticationTest {
 	   	users.add(user3);
    		boolean expectedResult = true;
    		boolean actualResult;
-   		actualResult =(al.findUsername(users, "un-existing@coursey.com") == -1);
+   		actualResult = (al.findUsername(users, "un-existing@coursey.com") == -1);
    		
 		assertEquals(actualResult, expectedResult);
    }
    
-   //Search for a correct password
+   /**
+    * Searching for a correct password
+    */
    @Test
    public void testCorrectPassword() {
 	   	CourseyUser user1 = new CourseyUser();
@@ -82,7 +94,9 @@ public class AdminAuthenticationTest {
 		assertEquals(actualResult, expectedResult);
   }
   
-  //Search for a wrong password
+  /**
+   * Searching for an incorrect password
+   */
   @Test
   public void testIncorrectPassword() {
 	   	CourseyUser user1 = new CourseyUser();
@@ -113,4 +127,6 @@ public class AdminAuthenticationTest {
   		
 		assertEquals(actualResult, expectedResult);
   }
+  
+  
 } 

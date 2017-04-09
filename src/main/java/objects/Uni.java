@@ -5,7 +5,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
-
+/**
+ * <h1>University</h1>
+ * This class sets all the information for a given univeristy.
+ * 
+ * @author Technoligest
+ *
+ */
 
 public class Uni implements Serializable, Cloneable {
 
@@ -19,6 +25,8 @@ public class Uni implements Serializable, Cloneable {
 	public Long getId() {
 		return id;
 	}
+	
+	
 	/**
 	 * sets pending university id
 	 * @param id
@@ -92,7 +100,9 @@ public class Uni implements Serializable, Cloneable {
 		this.email = email;
 	}
 
-	
+	/**
+	 * @return University which is the clone of this given university
+	 */
 	@Override
 	public Uni clone() throws CloneNotSupportedException {
 		try {

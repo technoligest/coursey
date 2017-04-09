@@ -16,7 +16,12 @@ import db.PendingUni;
 import db.AcceptedUni;
 import layouts.UniForm;
 import objects.*;
-
+/**
+ * 
+ * <h1>Admin Control Panel View</h1>
+ * This is the view that shows the admin control panel.
+ * @author Technoligest
+ */
 
 public class AdminControlPanelView extends VerticalLayout implements View{
 
@@ -44,6 +49,11 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 	public Grid getUniList(){
 		return uniList;
 	}
+	
+	/**
+	 * Add this view to the navigator of this application
+	 * @param nv the navigator for this applications
+	 */
 	public  AdminControlPanelView(Navigator nv){
 		this.nv =nv;
 
@@ -91,11 +101,18 @@ public class AdminControlPanelView extends VerticalLayout implements View{
 		mainLayout.setExpandRatio(uniForm, 1);
 		addComponent(mainLayout);
 	}
-
+	
+	/**
+	 * Wrapper class for the refresh contacts
+	 */
 	public void refreshContacts() {
 		refreshContacts(uniFilter.getValue());
 	}
-
+	
+	/**
+	 * Refreshes the contacts in this view.
+	 * @param stringFilter The inputted contact list
+	 */
 	private void refreshContacts(String stringFilter) {
 		pendingList.setContainerDataSource(new BeanItemContainer<>(
 				PendingUni.class, service1.findAllPendingUniversitiesJPA()));

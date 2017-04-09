@@ -25,7 +25,12 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.Alignment;
-
+/**
+ * <h1>Request</h1>
+ * This view helps us create a request for a university to request access to our software.
+ * @author Technoligest
+ *
+ */
 @Theme("mytheme")
 public class Request extends VerticalLayout implements View {
 	Navigator nv;
@@ -34,6 +39,11 @@ public class Request extends VerticalLayout implements View {
 	static final String USER = "root";
 	static final String PASS = "negahban";
 	
+	
+	/**
+	 * Everything in this view is initialized in the contructor and it is added to the navigator of the parent.
+	 * @param nv
+	 */
 	public Request(Navigator nv){
 		final VerticalLayout mainlayout = new VerticalLayout();
 		final VerticalLayout layout = new VerticalLayout();

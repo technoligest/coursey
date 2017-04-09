@@ -16,7 +16,13 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Notification.Type;
 import db.*;
-
+/**
+ * <h1>Create Coursy Account View</h1>
+ * 
+ * This class helps us create an account for a coursy employee.
+ * @author Technoligest
+ *
+ */
 public class CreateCoursyAccountView extends VerticalLayout implements View {
 	Navigator nv;
 	
@@ -24,6 +30,11 @@ public class CreateCoursyAccountView extends VerticalLayout implements View {
 	static final String USER = "root";
 	static final String PASS = "negahban";
 	
+	
+	/**
+	 * Everything in this view is initialized in the contructor and it is added to the navigator of the parent.
+	 * @param nv
+	 */
 	public CreateCoursyAccountView(Navigator nv){
 		this.nv=nv;
 		

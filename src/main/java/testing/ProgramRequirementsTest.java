@@ -7,7 +7,14 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import objects.ProgramRequirements;
-
+/**
+ * <h1>Program Requirements Test</h1>
+ * Testing the program requirements.
+ * 
+ * 
+ * @author Technoligest
+ *
+ */
 public class ProgramRequirementsTest {
 
 	   //Sample data for testing
@@ -15,7 +22,9 @@ public class ProgramRequirementsTest {
 	   String programName = "Computer Science";
 	   ProgramRequirements sample = new ProgramRequirements(programName, courses);
 	   
-	   //Insert courses in an empty course list and check if it has been inserted
+	   /**
+	    * Insert courses in an empty course list and check if it has been inserted
+	    */
 	   @Test
 	   public void testInsertingCourses() {
 		   	sample.addCourse("Database");
@@ -27,7 +36,9 @@ public class ProgramRequirementsTest {
 			assertEquals(actualResult, expectedResult);
 	   }
 	   
-	   //Delete a course and check if it has been deleted from the course requirements
+	   /**
+	    * Delete a course and check if it has been deleted from the course requirements
+	    */
 	   @Test
 	   public void testRemovingCourse() {
 		   	sample.addCourse("Database");
@@ -40,7 +51,9 @@ public class ProgramRequirementsTest {
 			assertEquals(actualResult, expectedResult);
 	   }
 	   
-	   //Rename a course and check if it has been renamed successfully
+	   /**
+	    * Rename a course and check if it has been renamed successfully
+	    */
 	   @Test
 	   public void testRenamingCourse() {
 		   	sample.addCourse("Database");
@@ -57,6 +70,4 @@ public class ProgramRequirementsTest {
 		   	}
 			assertEquals(actualResult, expectedResult);
 	   }
-	   
-
 }

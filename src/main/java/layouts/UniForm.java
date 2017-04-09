@@ -16,7 +16,12 @@ import db.PendingUni;
 import db.AcceptedUni;
 import objects.*;
 import views.AdminControlPanelView;
-
+/**
+ * <h1>Universities Layout</h1>
+ * This is a layout that allows us to view universities and do the functions on them
+ * @author Technoligest
+ *
+ */
 
 public class UniForm extends FormLayout {
 
@@ -41,20 +46,26 @@ public class UniForm extends FormLayout {
 	
 	/**
 	 * build layout
-	 * @param acpv
+	 * @param acpv This is the view that will dispaly the universities
 	 */
 	public UniForm(AdminControlPanelView acpv) {
 		this.acpv=acpv;
 		configureComponents();
 		buildLayout();
 	}
-
+	
+	/**
+	 * Configures the components to show them properly.
+	 */
 	private void configureComponents() {
 		approve.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		approve.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 		setVisible(false);
 	}
 
+	/**
+	 * This methods builds the layout for displayign the universities
+	 */
 	private void buildLayout() {
 		setSizeUndefined();
 		setMargin(true);
@@ -100,7 +111,7 @@ public class UniForm extends FormLayout {
 
 	/**
 	 * make pop up disappear
-	 * @param event
+	 * @param event the click of the cancel button
 	 */
 	public void cancel(Button.ClickEvent event) {
 		// Place to call business logic.
@@ -109,9 +120,10 @@ public class UniForm extends FormLayout {
 		acpv.getUniList().select(null);
 	}
 
+	
 	/**
 	 * displays information about the pending university
-	 * @param Uni 
+	 * @param pendingUni a university to show
 	 */
 	public void edit(PendingUni pendingUni) {
 		AcceptedActions.setVisible(false);
@@ -122,15 +134,14 @@ public class UniForm extends FormLayout {
 			City.setValue("City: "+uni.getCity());
 			Country.setValue("Country: "+uni.getCountry());
 			email.setValue("Email: "+uni.getEmail());
-
-
-
 		}
 		setVisible(pendingUni != null);
 	}
+	
+	
 	/**
 	 * displays information about the approved university
-	 * @param AcceptedUni
+	 * @param acceptedUni a university to show
 	 */
 	public void edit2(db.AcceptedUni acceptedUni) {
 		AcceptedActions.setVisible(true);
@@ -144,7 +155,13 @@ public class UniForm extends FormLayout {
 		}
 		setVisible(acceptedUni != null);
 	}
-
+	
+	
+	/**
+	 * This method helps us deny a university by deleting it.
+	 * 
+	 * @param event which is a button click event for the deny button
+	 */
 	private void deny(Button.ClickEvent event) {
 		Connection connect;
 		Statement state;
@@ -166,7 +183,10 @@ public class UniForm extends FormLayout {
 		}
 	}
 	
-
+	/**
+	 * This helps us delete a university if the button is pressed in the UI
+	 * @param event is the event of the button click from the UI
+	 */
 	private void delete(Button.ClickEvent event){
 		String msg = String.format(AUni.getName()+" DELETED ");
 		Connection connect;
@@ -185,6 +205,13 @@ public class UniForm extends FormLayout {
 		}
 		
 	}
+	
+	/**
+	 * This method helps us escape single quotes for a given string.
+	 * 
+	 * @param input a given string which might or might not include single quotes.
+	 * @return String which is the same inputted String but with the single quotes escaped
+	 */
 	private static String doubleQuote(String input){
 		String result="";
 		for(int i=0; i<input.length()-1;++i){

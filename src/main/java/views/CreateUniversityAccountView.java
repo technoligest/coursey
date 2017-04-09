@@ -19,7 +19,13 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 
 import objects.*;
-
+/**
+ * <h1>Create University Account View</h1>
+ * 
+ * This class helps us create a university account view where a university can see its account details
+ * @author Technoligest
+ *
+ */
 public class CreateUniversityAccountView extends VerticalLayout implements View {
 	Navigator nv;
 	
@@ -27,6 +33,11 @@ public class CreateUniversityAccountView extends VerticalLayout implements View 
 	static final String USER = "root";
 	static final String PASS = "negahban";
 	
+	
+	/**
+	 * Everything in this view is initialized in the contructor and it is added to the navigator of the parent.
+	 * @param nv
+	 */
 	public CreateUniversityAccountView(Navigator nv){
 		this.nv=nv;
 

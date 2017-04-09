@@ -21,11 +21,21 @@ import db.CourseyUser;
 import frontUi.MyUI;
 
 import java.util.*;
-
+/**
+ * <h1>Start View</h1>
+ * This displays the information when the program starts up.
+ * It is basically the homepage of the program and maight change significantly over time.
+ * 
+ * @author Technoligest
+ *
+ */
 public class StartView extends VerticalLayout implements View{
 	private Navigator nv;
 	
-	
+	/**
+	 * Everything in this view is initialized in the contructor and it is added to the navigator of the parent.
+	 * @param nv
+	 */
 	public StartView(Navigator nv){
 		this.nv=nv;
 

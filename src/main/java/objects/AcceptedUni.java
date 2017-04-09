@@ -5,6 +5,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
+/**
+ * <h1>Accepted University</h1>
+ * This class stores an accepted university and its attributes
+ * 
+ * @author Technoligest
+ *
+ */
+
 
 public class AcceptedUni implements Serializable, Cloneable {
 
@@ -18,16 +26,18 @@ public class AcceptedUni implements Serializable, Cloneable {
     public Long getId2() { 
     	return id2; 
     }
+    
+    
     /**
      * sets id
-     * @param id
+     * @param id sets the id of the accepted univeristy
      */
     public void setId2(Long id) { 
     	this.id2 = id; 
     }
     /**
      * returns the approved university name
-     * @return
+     * @return returns the name of the university
      */
     public String getUniversityName2() { 
     	return universityName2; 
@@ -84,7 +94,11 @@ public class AcceptedUni implements Serializable, Cloneable {
     public void setEmail2(String email) {
         this.email2 = email;
     }
-
+    
+    /**
+     * Gives us a clone of this Accepted University
+     * @return AcceptedUni the clone of this.
+     */
     @Override
     public AcceptedUni clone() throws CloneNotSupportedException {
         try {
@@ -93,7 +107,8 @@ public class AcceptedUni implements Serializable, Cloneable {
             throw new CloneNotSupportedException();
         }
     }
-
+    
+   
     @Override
     public String toString() {
         return "Contact{" + "id=" + id2 + ", UniversityName=" + universityName2
