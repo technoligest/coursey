@@ -42,6 +42,7 @@ public class MyUI extends UI {
     	navigator.addView("createCoursyAccount", new CreateCoursyAccountView(navigator));
     	navigator.addView("adminControlPanel", new AdminControlPanelView(navigator));
     	navigator.addView("adminLogin", new AdminLoginView(navigator));
+    	navigator.addView("requestView" , new Request(navigator));
 	}
 
 	/*
